@@ -1,7 +1,6 @@
-# track-your-goals-octane
+# Track Your Goals
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+A simple pwa for tracking arbitrary goals.
 
 ## Prerequisites
 
@@ -14,8 +13,8 @@ You will need the following things properly installed on your computer.
 
 ## Installation
 
-* `git clone <repository-url>` this repository
-* `cd track-your-goals-octane`
+* `git clone https://github.com/Frozenfire92/TrackYourGoals`
+* `cd TrackYourGoals`
 * `npm install`
 
 ## Running / Development
@@ -46,7 +45,7 @@ Make use of the many generators for code, try `ember help generate` for more det
 
 ### Deploying
 
-Specify what it takes to deploy your app.
+This app is automatically deployed to GitHub Pages via TravisCI. See [.travis.yml](.travis.yml) for details
 
 ## Further Reading / Useful Links
 
