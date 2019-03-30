@@ -1,0 +1,24 @@
+<h3>
+  {{#if this.editName}}
+    {{input value=this.model.name type="text"}}
+    <small>
+      <button {{action this.save}}>Save</button>
+    </small>
+  {{else}}
+    {{this.model.name}}
+    <small>
+      <button {{action (toggle "editName" this)}}>Edit</button>
+      <button {{action this.delete}} class="warning">Delete</button>
+    </small>
+  {{/if}}
+</h3>
+<h4>{{this.model.streak}} day streak</h4>
+<h4>{{this.model.records.length}} days recorded</h4>
+
+<GoalUpdater
+  @goal={{this.model}}
+  @submit={{this.saveRecord}}
+/>
+<GoalCalendar
+  @data={{this.model.dataHash}}
+/>

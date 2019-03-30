@@ -1,0 +1,13 @@
+<div class="goal-list">
+  {{#link-to "goals.create" class="new"}}
+    <h3>+ New Goal</h3>
+    <span>start your streak today</span>
+  {{/link-to}}
+  {{#each @goals as |goal|}}
+    {{#link-to "goals.goal" goal.id}}
+      <h3>{{goal.name}}</h3>
+      <span>{{goal.streak}} day streak</span>
+      <span>{{goal.records.length}} days recorded</span>
+    {{/link-to}}
+  {{/each}}
+</div>

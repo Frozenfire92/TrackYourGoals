@@ -1,0 +1,21 @@
+<select onchange={{action this.setYear}}>
+  {{#each this.years as |year|}}
+    <option value={{year}}>
+      {{year}}
+    </option>
+  {{/each}}
+</select>
+
+<select onchange={{action this.setOrientation}}>
+  {{#each this.orientations as |orientation|}}
+    <option value={{orientation}}>
+      {{orientation}}
+    </option>
+  {{/each}}
+</select>
+
+<div
+  class="goal-calendar"
+  {{did-insert this.draw}}
+  {{did-update this.updateData @data}}
+/>

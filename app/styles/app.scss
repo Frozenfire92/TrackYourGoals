@@ -1,0 +1,60 @@
+@import 'variables';
+
+@import 'functions';
+@import 'mixins';
+@import 'util';
+
+@import 'elements';
+@import 'components';
+
+
+html {
+  background: $bg-color;
+  color: $font-color;
+}
+
+body {
+  margin: 1rem;
+}
+
+a {
+  color: $primary-color;
+  text-decoration: none;
+}
+
+h1 {
+  font-weight: 500;
+  font-size: 2rem;
+  padding-bottom: 0.5rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+}
+
+nav {
+  padding-bottom: 0.75rem;
+
+  a {
+    padding: 0.5rem;
+    display: inline-block;
+    color: $font-color;
+
+
+    &.active {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+    }
+  }
+}
+
+[role="button"] {
+  cursor: pointer;
+}
+
+form {
+  label {
+    display: block;
+    padding: 0.25rem;
+  }
+}

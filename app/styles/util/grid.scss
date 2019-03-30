@@ -1,0 +1,10 @@
+.grid-container {
+  @include large-screen {
+    grid-template-columns: repeat(auto-fill, minmax(20%, 1fr));
+    grid-gap: 1.5rem;
+  }
+
+  display: grid;
+  grid-gap: .5rem;
+  grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+}

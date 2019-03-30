@@ -1,0 +1,36 @@
+.goal-calendar {
+  .day {
+    stroke: #ccc;
+  }
+
+  .month {
+    fill: none;
+    stroke: #000;
+    stroke-width: 1px;
+  }
+
+  svg {
+    margin: 0 auto;
+    display: block;
+    width: 80%;
+    height: auto;
+  }
+}
+
+@media only screen and (min-width: 800px) {
+  .goal-calendar svg {
+    width: 50%;
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+  .goal-calendar svg {
+    width: 40%;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .goal-calendar svg {
+    width: 33%;
+  }
+}

@@ -1,5 +1,13 @@
-{{!-- The following component displays Ember's default welcome message. --}}
-<WelcomePage />
-{{!-- Feel free to remove this! --}}
-
-{{outlet}}
+<header>
+  <h1>
+    Track your goals!
+  </h1>
+  <nav>
+    {{#link-to "goals"}}Goals{{/link-to}}
+    {{#link-to "settings"}}Settings{{/link-to}}
+  </nav>
+</header>
+<main>
+  {{outlet}}
+  <Modal @type={{this.type}} />
+</main>

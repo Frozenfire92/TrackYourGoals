@@ -23,6 +23,10 @@ module.exports = function(environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
+    },
+
+    'ember-local-storage': {
+      fileExport: true
     }
   };
 
@@ -46,9 +50,9 @@ module.exports = function(environment) {
     ENV.APP.autoboot = false;
   }
 
-  if (environment === 'production') {
+  // if (environment === 'production') {
 
-  }
+  // }
 
   return ENV;
 };

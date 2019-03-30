@@ -1,0 +1,33 @@
+.goal-list {
+  @include medium-screen {
+    grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
+  }
+
+  @include large-screen {
+    grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+  }
+
+  @include x-large-screen {
+    grid-template-columns: repeat(auto-fill, minmax(20%, 1fr));
+  }
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+  grid-gap: 1rem;
+
+  a {
+    text-decoration: none;
+    color: initial;
+    border: 1px solid $border-color;
+    padding: 0.5rem;
+    background: $card-color;
+
+    span {
+      display: block;
+    }
+
+    &.new {
+      background: $primary-color;
+    }
+  }
+}

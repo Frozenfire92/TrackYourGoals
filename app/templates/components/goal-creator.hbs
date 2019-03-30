@@ -1,0 +1,16 @@
+<form onsubmit={{action this.submit}}>
+  <label for="name">
+    Name
+    <input type="text" placeholder="What are you tracking?" name="name">
+  </label>
+
+  <label for="type">
+    Type
+    <select name="type">
+      <option value="boolean">Boolean (yes/no)</option>
+      <option value="amount">Amount (#)</option>
+    </select>
+  </label>
+
+  <input type="submit" value="Create Goal">
+</form>

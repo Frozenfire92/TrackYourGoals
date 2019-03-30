@@ -1,0 +1,41 @@
+button,
+input[type="submit"] {
+  padding: 0.5rem 0.75rem;
+
+  cursor: pointer;
+  user-select: none;
+  transition: all 150ms linear;
+  text-align: center;
+  white-space: nowrap;
+  text-decoration: none !important;
+  text-transform: none;
+  text-transform: capitalize;
+
+  color: #fff;
+  border: 0 none;
+  font-size: 0.75rem;
+
+  -webkit-appearance: none;
+  -moz-appearance:    none;
+  appearance:         none;
+
+  background: $primary-color;
+
+  &:hover,
+  &:active {
+    background: shade($primary-color, 25%);
+  }
+
+  &:focus {
+    outline: 1px dotted $font-color;
+  }
+
+  &.warning {
+    background: $warning-color;
+
+    &:hover,
+    &:active {
+      background: shade($warning-color, 25%);
+    }
+  }
+}

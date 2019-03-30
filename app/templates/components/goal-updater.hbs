@@ -1,0 +1,19 @@
+<form class="goal-updater" onsubmit={{action this.submit}}>
+  {{#if (and this.today (not this.showDate))}}
+    <span role="button" {{action this.showDateInput}}>Today, </span>
+  {{else}}
+    {{input type="date" value=this.date}}
+  {{/if}}
+  {{#if (eq @goal.type "amount")}}
+    <label for="amount">
+      I accomplished this much
+      <input type="number" name="amount" min="0">
+    </label>
+  {{else if (eq @goal.type "boolean")}}
+    <label for="complete">
+      I accomplished my goal today
+      <input type="checkbox" name="complete">
+    </label>
+  {{/if}}
+  <input type="submit" value="save">
+</form>
