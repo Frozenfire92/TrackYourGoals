@@ -2,7 +2,7 @@
 
 module.exports = function(environment) {
   let ENV = {
-    modulePrefix: 'track-your-goals-octane',
+    modulePrefix: 'track-your-goals',
     environment,
     rootURL: '/',
     locationType: 'auto',

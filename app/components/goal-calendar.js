@@ -4,6 +4,8 @@ import { tracked } from '@glimmer/tracking';
 
 import * as d3 from 'd3';
 
+import { maxBoolean, maxFloat, maxInt } from 'track-your-goals/utils/reduce';
+
 export default class GoalCalendarComponent extends Component {
   constructor() {
     super(...arguments);
@@ -37,31 +39,10 @@ export default class GoalCalendarComponent extends Component {
       .sort();
   }
 
-  monthPath(t0) {
-    let t1 = new Date(t0.getFullYear(), t0.getMonth() + 1, 0);
-    let d0 = t0.getDay();
-    let w0 = d3.timeWeek.count(d3.timeYear(t0), t0);
-    let d1 = t1.getDay();
-    let w1 = d3.timeWeek.count(d3.timeYear(t1), t1);
-
-    return 'M' + (w0 + 1) * this.cellSize + ',' + d0 * this.cellSize
-      + 'H' + w0 * this.cellSize + 'V' + 7 * this.cellSize
-      + 'H' + w1 * this.cellSize + 'V' + (d1 + 1) * this.cellSize
-      + 'H' + (w1 + 1) * this.cellSize + 'V' + 0
-      + 'H' + (w0 + 1) * this.cellSize + 'Z';
-  }
-
   @action updateData() {
-    let { titles, days } = this;
+    let { titles } = this;
     let { data } = this.args;
-    console.log('updateData', { titles, data, days });
-
-    let keys = Object.keys(data);
-    let max = keys.reduce((prev, curr) => {
-      return parseInt(data[curr]) > prev
-        ? parseInt(data[curr])
-        : prev;
-    }, 0);
+    console.log('updateData', { titles, data });
 
     titles.text(d => {
       let key = this.format(d);
@@ -70,15 +51,11 @@ export default class GoalCalendarComponent extends Component {
         : key;
     });
 
-    days.attr('fill', d => {
-      let key = this.format(d);
-      return data.hasOwnProperty(key)
-        ? d3.interpolateBlues(data[key] / max)
-        : d3.interpolateBlues(0)
-    });
+    this.updateColors();
   }
 
-  @action updateOrientation() {
+  @action updateOrientation(e) {
+    this.orientation = e.target.value;
     let { cellSize, days, horizontal, svg, width, height } = this;
 
     svg.attr('viewBox', `0 0 ${width} ${height}`);
@@ -89,32 +66,71 @@ export default class GoalCalendarComponent extends Component {
     days
       .attr('y', horizontal ? week : weeks)
       .attr('x', horizontal ? weeks : week)
-
   }
 
-  @action updateYear() {
+  @action updateYear(e) {
+    this.year = parseInt(e.target.value);
     let { days, year } = this;
     days.data(d3.timeDays(new Date(year, 0, 1), new Date(year + 1, 0, 1)))
   }
 
-  @action draw(element) {
-    console.log('draw');
-    let { width, height, cellSize, year, horizontal } = this;
-    let { data } = this.args;
+  @action updateColors() {
+    let {
+      data,
+      type,
+      colorScheme = 'interpolateGreens'
+    } = this.args;
+    let { days } = this;
 
-    let keys = Object.keys(data);
-    let max = keys.reduce((prev, curr) => {
-      return parseInt(data[curr]) > prev
-        ? parseInt(data[curr])
-        : prev;
-    }, 0);
-    console.log('max', max);
+    let reducer;
+    switch(type) {
+      case 'boolean': reducer = maxBoolean; break;
+      case 'amount-float': reducer = maxFloat; break;
+      case 'amount-integer': reducer = maxInt; break;
+    }
+
+    let max = Object.keys(data)
+      .map(n => data[n])
+      .reduce(reducer, 0);
+
+    days.attr('fill', d => {
+      let key = this.format(d);
+      return data.hasOwnProperty(key)
+        ? d3[colorScheme](data[key] / max)
+        : d3[colorScheme](0)
+    });
+  }
+
+  @action draw(element) {
+    let {
+      width,
+      height,
+      cellSize,
+      year = (new Date()).getFullYear(),
+      horizontal
+    } = this;
+    let {
+      data,
+      type,
+      colorScheme = 'interpolateGreens'
+    } = this.args;
+
+    let reducer;
+    switch(type) {
+      case 'boolean': reducer = maxBoolean; break;
+      case 'amount-float': reducer = maxFloat; break;
+      case 'amount-integer': reducer = maxInt; break;
+    }
+
+    let max = Object.keys(data)
+      .map(n => data[n])
+      .reduce(reducer, 0);
 
     this.svg = d3.select(element)
       .append('svg')
+      .attr('viewBox', `0 0 ${width} ${height}`)
 
     this.group = this.svg
-      .attr('viewBox', `0 0 ${width} ${height}`)
       .append('g');
 
 
@@ -132,8 +148,8 @@ export default class GoalCalendarComponent extends Component {
       .attr('fill', d => {
         let key = this.format(d);
         return data.hasOwnProperty(key)
-          ? d3.interpolateBlues(data[key] / max)
-          : d3.interpolateBlues(0)
+          ? d3[colorScheme](data[key] / max)
+          : d3[colorScheme](0)
       });
 
     this.titles = this.days
@@ -144,17 +160,5 @@ export default class GoalCalendarComponent extends Component {
           ? `${key}: ${data[key]}`
           : key;
       });
-  }
-
-  @action setYear(e){
-    console.log('setYear', e.target.value);
-    this.year = parseInt(e.target.value);
-    this.updateYear();
-  }
-
-  @action setOrientation(e) {
-    console.log('setOrientation', e.target.value);
-    this.orientation = e.target.value;
-    this.updateOrientation();
   }
 }

@@ -30,7 +30,8 @@ export default class GoalUpdaterComponent extends Component {
 
     switch (this.args.goal.type) {
       case 'boolean': value = e.target.complete.checked; break;
-      case 'amount': value = e.target.amount.value; break;
+      case 'amount-integer':
+      case 'amount-float': value = e.target.amount.value; break;
     }
 
     if (this.date && this.args.submit && typeof this.args.submit === 'function') {

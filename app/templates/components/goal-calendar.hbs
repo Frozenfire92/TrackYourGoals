@@ -1,12 +1,14 @@
-<select onchange={{action this.setYear}}>
-  {{#each this.years as |year|}}
-    <option value={{year}}>
-      {{year}}
-    </option>
-  {{/each}}
-</select>
+{{#if (gt this.years.length 1)}}
+  <select onchange={{action this.updateYear}}>
+    {{#each this.years as |year|}}
+      <option value={{year}}>
+        {{year}}
+      </option>
+    {{/each}}
+  </select>
+{{/if}}
 
-<select onchange={{action this.setOrientation}}>
+<select onchange={{action this.updateOrientation}}>
   {{#each this.orientations as |orientation|}}
     <option value={{orientation}}>
       {{orientation}}
@@ -18,4 +20,5 @@
   class="goal-calendar"
   {{did-insert this.draw}}
   {{did-update this.updateData @data}}
+  {{did-update this.updateColors @colorScheme}}
 />

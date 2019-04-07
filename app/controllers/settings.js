@@ -4,6 +4,17 @@ import { inject as service } from '@ember/service';
 
 export default class SettingsController extends Controller {
   @service store;
+  @service settings;
+
+  @action updateVisualizationColorScheme(e) {
+    this.settings.model.set('visualizationColorScheme', e.target.value);
+    this.settings.model.save();
+  }
+
+  @action updateAppColorScheme(e) {
+    this.settings.model.set('appColorScheme', e.target.value);
+    this.settings.model.save();
+  }
 
   @action importData(name, data, type) {
     if (type === 'application/json') {
@@ -16,7 +27,7 @@ export default class SettingsController extends Controller {
 
   @action exportData() {
     // Export data from store (ember-local-storage)
-    let { _result: textData } = this.store.exportData(['goals']);
+    let { _result: textData } = this.store.exportData(['goals', 'settings']);
 
     // Generate and download file
     let fileName = 'track-your-goals-backup.json';
@@ -37,13 +48,10 @@ export default class SettingsController extends Controller {
     document.body.removeChild(a);
   }
 
-  @action resetData(force = false) {
-    let valid = true;
-    if (!force) {
-      valid = window.confirm('Delete all data, are you sure?');
-    }
+  @action resetData() {
+    let confirmed = window.confirm('Delete all data, are you sure?');
 
-    if (valid) {
+    if (confirmed) {
       localStorage.clear();
       this.store.unloadAll();
     }

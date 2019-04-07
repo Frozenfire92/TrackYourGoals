@@ -58,3 +58,18 @@ form {
     padding: 0.25rem;
   }
 }
+
+// Pages
+
+main.settings {
+  label {
+    display: block;
+  }
+
+  .visualization-scheme-preview {
+    display: inline-block;
+    svg {
+      width: 100%;
+    }
+  }
+}

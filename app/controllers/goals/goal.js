@@ -5,6 +5,7 @@ import { tracked } from '@glimmer/tracking';
 
 export default class GoalsGoalController extends Controller {
   @service store;
+  @service settings;
 
   @tracked editName = false;
   @tracked trigger = false;

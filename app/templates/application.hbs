@@ -7,7 +7,7 @@
     {{#link-to "settings"}}Settings{{/link-to}}
   </nav>
 </header>
-<main>
+<main class={{this.pathClass}}>
   {{outlet}}
   <Modal @type={{this.type}} />
 </main>

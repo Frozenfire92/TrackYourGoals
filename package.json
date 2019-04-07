@@ -52,7 +52,8 @@
     "eslint-plugin-node": "^8.0.1",
     "loader.js": "^4.7.0",
     "qunit-dom": "^0.8.0",
-    "sass": "^1.17.3"
+    "sass": "^1.17.3",
+    "underscore": "^1.9.1"
   },
   "engines": {
     "node": "6.* || 8.* || >= 10.*"

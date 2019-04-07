@@ -5,10 +5,20 @@
     {{else}}
       {{input type="date" value=this.date}}
     {{/if}}
-    {{#if (eq @goal.type "amount")}}
+
+    {{#if (contains
+      @goal.type
+      (array 'amount-integer' 'amount-float')
+    )}}
       <label for="amount">
         I accomplished this much
-        <input type="number" name="amount" min="0">
+        <input
+          type="number"
+          name="amount"
+          min="0"
+          placeholder="0"
+          step={{if (eq @goal.type "amount-float") "any" "1"}}
+        >
       </label>
     {{else if (eq @goal.type "boolean")}}
       <label for="complete">

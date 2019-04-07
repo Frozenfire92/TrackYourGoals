@@ -1,11 +1,32 @@
 <h3>Configure</h3>
 <label>
-  Theme
-  <select name="" id="">
+  App Color Scheme
+  <select
+    onchange={{action this.updateAppColorScheme}}
+    value={{this.settings.model.appColorScheme}}
+  >
     <option value="light">Light</option>
     <option value="dark">Dark</option>
   </select>
+  {{this.settings.model.appColorScheme}}
 </label>
+
+<section>
+  <h4>Visualization Color Scheme</h4>
+  {{#each-in this.settings.visualizationColorSchemes as |value title|}}
+    <label>
+      <input
+        type="radio"
+        name="visualization-color-scheme"
+        value={{value}}
+        onclick={{action this.updateVisualizationColorScheme}}
+        checked={{eq this.settings.model.visualizationColorScheme value}}
+      >
+      <VisualizationSchemePreview @scheme={{value}} />
+      {{title}}
+    </label>
+  {{/each-in}}
+</section>
 
 <hr>
 
