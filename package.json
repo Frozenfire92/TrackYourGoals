@@ -1,8 +1,8 @@
 {
-  "name": "track-your-goals-octane",
-  "version": "0.0.0",
+  "name": "track-your-goals",
+  "version": "0.1.0",
   "private": true,
-  "description": "Small description for track-your-goals-octane goes here",
+  "description": "A simple pwa for tracking arbitrary goals.",
   "repository": "",
   "license": "MIT",
   "author": "",
