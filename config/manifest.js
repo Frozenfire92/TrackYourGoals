@@ -8,7 +8,7 @@ module.exports = function(/* environment, appConfig */) {
     name: "Track Your Goals",
     short_name: "Track Your Goals",
     description: "An app for tracking daily goals",
-    start_url: "/",
+    start_url: "/TrackYourGoals/",
     display: "standalone",
     background_color: "#fff",
     theme_color: "#fff",
