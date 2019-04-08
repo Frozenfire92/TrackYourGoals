@@ -13,6 +13,14 @@ module.exports = function(/* environment, appConfig */) {
     background_color: "#fff",
     theme_color: "#fff",
     icons: [
+      {
+        src: '/assets/images/icon-192.png',
+        sizes: '192x192'
+      },
+      {
+        src: '/assets/images/icon-512.png',
+        sizes: '512x512'
+      }
     ],
     ms: {
       tileColor: '#fff'
