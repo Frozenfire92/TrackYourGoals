@@ -25,3 +25,14 @@ script:
   - npm run lint:hbs
   - npm run lint:js
   - npm test
+  - npm run build -- -prod
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  keep-history: true
+  on:
+    branch: master
+  local-dir: dist
+  verbose: true
