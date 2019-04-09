@@ -3,8 +3,19 @@
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function(defaults) {
+  let blacklist = [];
+  if (EmberApp.env() !== 'production') {
+    blacklist.push(
+      'ember-service-worker',
+      'ember-service-worker-asset-cache',
+      'ember-service-worker-index'
+    );
+  }
+
   let app = new EmberApp(defaults, {
-    // Add options here
+    addons: {
+      blacklist
+    },
   });
 
   // Use `app.import` to add additional libraries to the generated
