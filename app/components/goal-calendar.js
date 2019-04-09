@@ -58,7 +58,9 @@ export default class GoalCalendarComponent extends Component {
     this.orientation = e.target.value;
     let { cellSize, days, horizontal, svg, width, height } = this;
 
-    svg.attr('viewBox', `0 0 ${width} ${height}`);
+    svg
+      .attr('viewBox', `0 0 ${width} ${height}`)
+      .attr('class', this.orientation);
 
     let weeks = d => d3.timeWeek.count(d3.timeYear(d), d) * cellSize + cellSize;
     let week = d => d.getDay() * cellSize + cellSize;
@@ -129,6 +131,7 @@ export default class GoalCalendarComponent extends Component {
     this.svg = d3.select(element)
       .append('svg')
       .attr('viewBox', `0 0 ${width} ${height}`)
+      .attr('class', horizontal ? 'horizontal' : 'vertical', )
 
     this.group = this.svg
       .append('g');
