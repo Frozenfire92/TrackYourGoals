@@ -6,12 +6,12 @@
     </small>
   {{else}}
     {{this.model.name}}
-    {{#unless (eq this.model.id 'demo')}}
+    {{#if (not-eq this.model.id "demo")}}
       <small>
         <button {{action (toggle "editName" this)}}>Edit</button>
         <button {{action this.delete}} class="warning">Delete</button>
       </small>
-    {{/unless}}
+    {{/if}}
   {{/if}}
 </h3>
 <h4>{{this.model.streak}} day streak</h4>
