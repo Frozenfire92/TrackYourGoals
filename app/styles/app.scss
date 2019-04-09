@@ -15,10 +15,7 @@ html {
 
 body {
   margin: 1rem;
-  margin: 0 auto;
-  max-width: 50em;
-  line-height: 1.5;
-  padding: 1em;
+  line-height: 1.35;
 }
 
 a {
@@ -26,10 +23,31 @@ a {
   text-decoration: none;
 }
 
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 0.5rem 1rem;
+  background: #eef0f2;
+}
+
+main {
+  margin-top: 4rem;
+  @media only screen and (min-width: 1000px) {
+    margin-top: 7rem;
+  }
+}
+
 h1 {
   font-weight: 500;
   font-size: 2rem;
   padding-bottom: 0.5rem;
+  display: none;
+
+  @media only screen and (min-width: 1000px) {
+    display: block;
+  }
 }
 
 h3 {
@@ -38,13 +56,10 @@ h3 {
 }
 
 nav {
-  padding-bottom: 0.75rem;
-
   a {
     padding: 0.5rem;
     display: inline-block;
     color: $font-color;
-
 
     &.active {
       border-bottom: 1px solid rgba(0, 0, 0, 0.25);
