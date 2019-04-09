@@ -27,23 +27,3 @@
     </label>
   {{/each-in}}
 </section>
-
-<hr>
-
-<h3>Import Data</h3>
-<p class="warning">This will erase any local data</p>
-<button>I Understand</button>
-<FileUpload
-  @change={{this.importData}}
-  accept=".json"
-/>
-
-<hr>
-
-<h3>Export Data</h3>
-<button {{action this.exportData}}>Download</button>
-
-<hr>
-
-<h3>Reset Data</h3>
-<button class="warning" {{action this.resetData}}>Delete</button>
