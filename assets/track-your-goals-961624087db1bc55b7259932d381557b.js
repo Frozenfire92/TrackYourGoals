@@ -14,7 +14,7 @@ return(0,r.default)(this,i),e=(0,l.default)(this,(0,o.default)(i).apply(this,arg
 console.log("updateData",{titles:t,data:r}),t.text(function(t){var a=e.format(t)
 return r.hasOwnProperty(a)?"".concat(a,": ").concat(r[a]):a}),this.updateColors()}},{key:"updateOrientation",value:function(e){this.orientation=e.target.value
 var t=this.cellSize,r=this.days,a=this.horizontal,l=this.svg,o=this.width,n=this.height
-l.attr("viewBox","0 0 ".concat(o," ").concat(n))
+l.attr("viewBox","0 0 ".concat(o," ").concat(n)).attr("class",this.orientation)
 var u=function(e){return d.timeWeek.count(d.timeYear(e),e)*t+t},i=function(e){return e.getDay()*t+t}
 r.attr("y",a?i:u).attr("x",a?u:i)}},{key:"updateYear",value:function(e){this.year=parseInt(e.target.value)
 var t=this.days,r=this.year
@@ -31,7 +31,7 @@ break
 case"amount-float":t=c.maxFloat
 break
 case"amount-integer":t=c.maxInt}var h=Object.keys(p).map(function(e){return p[e]}).reduce(t,0)
-this.svg=d.select(e).append("svg").attr("viewBox","0 0 ".concat(a," ").concat(l)),this.group=this.svg.append("g")
+this.svg=d.select(e).append("svg").attr("viewBox","0 0 ".concat(a," ").concat(l)).attr("class",i?"horizontal":"vertical"),this.group=this.svg.append("g")
 var y=function(e){return d.timeWeek.count(d.timeYear(e),e)*o+o},g=function(e){return e.getDay()*o+o}
 this.days=this.group.selectAll(".day").data(d.timeDays(new Date(u,0,1),new Date(u+1,0,1))).enter().append("rect").attr("class","day").attr("width",o).attr("height",o).attr("y",i?g:y).attr("x",i?y:g).attr("fill",function(e){var t=r.format(e)
 return p.hasOwnProperty(t)?d[b](p[t]/h):d[b](0)}),this.titles=this.days.append("title").text(function(e){var t=r.format(e)
@@ -187,4 +187,4 @@ return r>e?r:e}
 e.maxInt=function(e,t){var r=parseInt(t)
 return r>e?r:e}}),define("track-your-goals/utils/visualization-color-schemes",["exports"],function(e){Object.defineProperty(e,"__esModule",{value:!0}),e.default=void 0
 e.default={interpolateBlues:"Blue",interpolateGreens:"Green",interpolateGreys:"Grey",interpolateOranges:"Orange",interpolatePurples:"Purple",interpolateReds:"Red",interpolateBrBG:"Brown Blue-Green",interpolateBuGn:"Blue Green",interpolateBuPu:"Blue Purple",interpolateGnBu:"Green Blue",interpolateOrRd:"Orange Red",interpolatePiYG:"Pink Green",interpolatePRGn:"Purple Green",interpolatePuBu:"Purple Blue",interpolatePuBuGn:"Purple Blue Green",interpolatePuOr:"Purple Orange",interpolatePuRd:"Purple Red",interpolateRdBu:"Red Blue",interpolateRdGy:"Red Grey",interpolateRdPu:"Red Purple",interpolateRdYlBu:"Red Yellow to Blue",interpolateRdYlGn:"Red Yellow to Green",interpolateYlGn:"Yellow Green",interpolateYlGnBu:"Yellow Green Blue",interpolateYlOrBr:"Yellow Orange Brown",interpolateYlOrRd:"Yellow Orange Red",interpolateCool:"Cool",interpolateInferno:"Inferno",interpolateMagma:"Magma",interpolatePlasma:"Plasma",interpolateSpectral:"Spectral",interpolateViridis:"Viridis",interpolateWarm:"Warm"}}),define("track-your-goals/config/environment",[],function(){try{var e="track-your-goals/config/environment",t=document.querySelector('meta[name="'+e+'"]').getAttribute("content"),r={default:JSON.parse(decodeURIComponent(t))}
-return Object.defineProperty(r,"__esModule",{value:!0}),r}catch(a){throw new Error('Could not read config from meta tag with name "'+e+'".')}}),runningTests||require("track-your-goals/app").default.create({name:"track-your-goals",version:"0.1.0+904ebafe"})
+return Object.defineProperty(r,"__esModule",{value:!0}),r}catch(a){throw new Error('Could not read config from meta tag with name "'+e+'".')}}),runningTests||require("track-your-goals/app").default.create({name:"track-your-goals",version:"0.1.0+a7bc2707"})
