@@ -42,7 +42,6 @@ export default class GoalCalendarComponent extends Component {
   @action updateData() {
     let { titles } = this;
     let { data } = this.args;
-    console.log('updateData', { titles, data });
 
     titles.text(d => {
       let key = this.format(d);

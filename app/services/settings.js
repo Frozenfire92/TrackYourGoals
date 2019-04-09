@@ -9,7 +9,6 @@ export default class SettingsService extends Service {
     super(...arguments);
     // For some reason findRecord doesn't work here
     // TODO file a bug with ember-local-storage
-    console.log('settings service constructor');
     this.store.queryRecord('setting', { id: 'app' })
       .then((model) => {
         if (!model) {
@@ -17,7 +16,6 @@ export default class SettingsService extends Service {
           model.save();
         }
         this.model = model;
-        console.log('model set');
       });
   }
 

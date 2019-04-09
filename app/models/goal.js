@@ -9,7 +9,7 @@ export default class GoalModel extends Model {
 
   @computed('records.@each.{date,value}')
   get streak() {
-    let sortedRecords = this.records;
+    // let sortedRecords = this.records;
     // console.log('streak calc', sortedRecords);
     return 0;
   }
@@ -48,7 +48,6 @@ export default class GoalModel extends Model {
 
   @computed('records.@each.value')
   get dataHash() {
-    console.log('dataHash');
     let data = {};
     this.records.forEach(record =>
       data[record.date] = record.value
