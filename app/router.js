@@ -14,7 +14,6 @@ Router.map(function() {
   this.route('settings');
   this.route('data');
   this.route('about');
-  this.route('demo');
 });
 
 export default Router;

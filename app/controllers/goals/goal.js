@@ -32,7 +32,7 @@ export default class GoalsGoalController extends Controller {
       this.model.records.pushObject({ date, value });
     }
     set(this.model, 'records', this.model.records.sortBy('date'));
-    this.model.save();
+    if (this.model.id !== 'demo') this.model.save();
     this.toggleProperty('trigger');
   }
 }
