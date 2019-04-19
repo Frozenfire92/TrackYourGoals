@@ -12,29 +12,17 @@
   svg {
     margin: 0 auto;
     display: block;
-    width: 80%;
     height: auto;
-
-    &.horizontal {
-      width: 100%;
+    &.vertical {
+      @include medium-screen {
+        width: 50%;
+      }
+      @include large-screen {
+        width: 40%;
+      }
+      @include x-large-screen {
+        width: 33%;
+      }
     }
-  }
-}
-
-@media only screen and (min-width: 800px) {
-  .goal-calendar svg {
-    width: 50%;
-  }
-}
-
-@media only screen and (min-width: 1000px) {
-  .goal-calendar svg {
-    width: 40%;
-  }
-}
-
-@media only screen and (min-width: 1200px) {
-  .goal-calendar svg {
-    width: 33%;
   }
 }
