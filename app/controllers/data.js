@@ -1,13 +1,14 @@
 import Controller from '@ember/controller';
 import { action } from '@ember/object';
-import { inject as service } from '@ember/service';
 
 export default class DataController extends Controller {
-  @service store;
-
   @action importData(name, data, type) {
     if (type === 'application/json') {
-      this.store.importData(data)
+      localStorage.clear();
+      let parsedData = JSON.parse(data);
+      Object.keys(parsedData).forEach(key =>
+        localStorage.setItem(key, parsedData[key])
+      )
     }
     else {
       alert(`Cant process file of type: ${type}`);
@@ -15,8 +16,7 @@ export default class DataController extends Controller {
   }
 
   @action exportData() {
-    // Export data from store (ember-local-storage)
-    let { _result: textData } = this.store.exportData(['goals', 'settings']);
+    let textData = JSON.stringify(localStorage);
 
     // Generate and download file
     let fileName = 'track-your-goals-backup.json';
@@ -42,7 +42,6 @@ export default class DataController extends Controller {
 
     if (confirmed) {
       localStorage.clear();
-      this.store.unloadAll();
     }
   }
 }

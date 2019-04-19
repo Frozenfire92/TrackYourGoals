@@ -19,10 +19,10 @@
 
 <GoalUpdater
   @goal={{this.model}}
-  @submit={{this.saveRecord}}
+  @submit={{action this.goals.saveRecord this.model}}
 />
 <GoalCalendar
-  @data={{this.model.dataHash}}
+  @data={{this.dataHash}}
   @type={{this.model.type}}
-  @colorScheme={{this.settings.model.visualizationColorScheme}}
+  @colorScheme={{this.settings.visualizationColorScheme}}
 />

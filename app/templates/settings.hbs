@@ -4,13 +4,13 @@
   <h4>App Color Scheme</h4>
   <label>
     <select
-      onchange={{action this.updateAppColorScheme}}
-      value={{this.settings.model.appColorScheme}}
+      onchange={{action (mut this.settings.appColorScheme) value="target.value"}}
+      value={{this.settings.appColorScheme}}
     >
       <option value="light">Light</option>
       <option value="dark">Dark</option>
     </select>
-    {{this.settings.model.appColorScheme}}
+    {{this.settings.appColorScheme}}
   </label>
 </section>
 
@@ -25,8 +25,8 @@
             type="radio"
             name="visualization-color-scheme"
             value={{value}}
-            onclick={{action this.updateVisualizationColorScheme}}
-            checked={{eq this.settings.model.visualizationColorScheme value}}
+            onclick={{action (mut this.settings.visualizationColorScheme) value="target.value"}}
+            checked={{eq this.settings.visualizationColorScheme value}}
           >
           <VisualizationSchemePreview @scheme={{value}} />
         </div>

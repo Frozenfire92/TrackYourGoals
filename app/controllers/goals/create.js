@@ -1,16 +1,12 @@
 import Controller from '@ember/controller';
-import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
+import { action } from '@ember/object';
 
 export default class GoalsCreateController extends Controller {
-  @service store;
+  @service goals;
 
-  @action create(name, type) {
-    if (name && type) {
-      this.store
-        .createRecord('goal', { name, type })
-        .save()
-        .then((goal) => this.transitionToRoute('goals.goal', goal.id));
-    }
+  @action create() {
+    let goal = this.goals.create(...arguments);
+    this.transitionToRoute('goals.goal', goal.id);
   }
 }
