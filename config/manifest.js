@@ -10,6 +10,7 @@ module.exports = function(/* environment, appConfig */) {
     description: "An app for tracking daily goals",
     start_url: "/TrackYourGoals/",
     display: "standalone",
+    orientation: "any",
     background_color: "#fff",
     theme_color: "#fff",
     icons: [
