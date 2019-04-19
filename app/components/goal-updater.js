@@ -10,6 +10,7 @@ export default class GoalUpdaterComponent extends Component {
 
   @tracked date = null;
   @tracked showDate = false;
+  @tracked open = false;
 
   get today() {
     if (this.date === (new Date()).toISOString().slice(0, 10)) {
@@ -39,6 +40,7 @@ export default class GoalUpdaterComponent extends Component {
         this.date,
         value
       );
+      this.open = !this.open;
     }
   }
 }

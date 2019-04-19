@@ -1,21 +1,35 @@
 <h3>
   {{#if this.editName}}
     {{input value=this.model.name type="text"}}
-    <small>
-      <button {{action this.save}}>Save</button>
-    </small>
+    <button
+      title="edit"
+      class="inline primary"
+      {{action this.save}}
+    >
+      {{svg-jar "save" class="icon"}}
+    </button>
   {{else}}
     {{this.model.name}}
     {{#if (not-eq this.model.id "demo")}}
-      <small>
-        <button {{action (toggle "editName" this)}}>Edit</button>
-        <button {{action this.delete}} class="warning">Delete</button>
-      </small>
+      <button
+        title="edit"
+        class="inline"
+        {{action (toggle "editName" this)}}
+      >
+        {{svg-jar "edit" class="icon"}}
+      </button>
+      <button
+        title="delete"
+        class="inline warning"
+        {{action this.delete}}
+      >
+        {{svg-jar "delete" class="icon"}}
+      </button>
     {{/if}}
   {{/if}}
 </h3>
-<h4>{{this.model.streak}} day streak</h4>
-<h4>{{this.model.records.length}} days recorded</h4>
+
+<div>{{this.model.records.length}} days recorded | {{this.model.streak}} day streak</div>
 
 <GoalUpdater
   @goal={{this.model}}

@@ -1,14 +1,18 @@
 import Controller from '@ember/controller';
 import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 
 export default class DataController extends Controller {
+  @tracked importUnderstood = false;
+
   @action importData(name, data, type) {
     if (type === 'application/json') {
       localStorage.clear();
       let parsedData = JSON.parse(data);
       Object.keys(parsedData).forEach(key =>
         localStorage.setItem(key, parsedData[key])
-      )
+      );
+      this.importUnderstood = false;
     }
     else {
       alert(`Cant process file of type: ${type}`);

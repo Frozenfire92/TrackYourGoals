@@ -1,5 +1,14 @@
 .goal-updater {
-  margin-top: 1rem;
+  span[role="button"] {
+    text-decoration: underline;
+  }
+  input[type="date"] {
+    display: block;
+  }
+
+  &.inline {
+    display: inline-block;
+  }
   label {
     display: inline;
     padding: 0;

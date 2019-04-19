@@ -1,17 +1,39 @@
-<h3>Import Data</h3>
-<p class="warning">This will erase any local data</p>
-<button>I Understand</button>
-<FileUpload
-  accept=".json"
-  @change={{this.importData}}
-/>
+<section>
+  <h4>Import Data</h4>
+  {{#if this.importUnderstood}}
+    <FileUpload
+      accept=".json"
+      @change={{this.importData}}
+    />
+  {{else}}
+    <button {{action (toggle 'importUnderstood' this)}}>
+      This will erase any local data
+    </button>
+  {{/if}}
+</section>
 
-<hr>
+<section>
+  <h4>
+    Export Data
+  </h4>
+  <button
+    title="Download"
+    class="inline primary"
+    {{action this.exportData}}
+  >
+    {{svg-jar "download" class="icon"}}
+  </button>
+</section>
 
-<h3>Export Data</h3>
-<button {{action this.exportData}}>Download</button>
-
-<hr>
-
-<h3>Reset Data</h3>
-<button class="warning" {{action this.resetData}}>Delete</button>
+<section>
+  <h4>
+    Reset Data
+  </h4>
+  <button
+    title="Delete all data"
+    class="inline warning"
+    {{action this.resetData}}
+  >
+    {{svg-jar "delete" class="icon"}}
+  </button>
+</section>

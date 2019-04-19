@@ -84,12 +84,29 @@ form {
   }
 }
 
+.icon {
+  display: block;
+  stroke: $font-color;
+  stroke-width: 2;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+  fill: none;
+
+  &.warning {
+    stroke: $warning-color;
+  }
+
+  &.primary {
+    stroke: $primary-color;
+  }
+}
+
 // Pages
+section {
+  margin-bottom: 2rem;
+}
 
 main.settings {
-  section {
-    margin-bottom: 2rem;
-  }
 
   .flex-column {
     @include medium-screen {

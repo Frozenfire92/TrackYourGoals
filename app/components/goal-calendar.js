@@ -4,6 +4,7 @@ import { tracked } from '@glimmer/tracking';
 
 import * as d3 from 'd3';
 
+import { inLocalStorage } from 'track-your-goals/utils/decorators';
 import { maxBoolean, maxFloat, maxInt } from 'track-your-goals/utils/reduce';
 
 export default class GoalCalendarComponent extends Component {
@@ -12,7 +13,7 @@ export default class GoalCalendarComponent extends Component {
     this.year = this.years[this.years.length - 1];
   }
 
-  @tracked orientation = 'vertical';
+  @inLocalStorage orientation = 'vertical';
   orientations = ['vertical', 'horizontal'];
 
   format = d3.timeFormat('%Y-%m-%d');
@@ -53,8 +54,11 @@ export default class GoalCalendarComponent extends Component {
     this.updateColors();
   }
 
-  @action updateOrientation(e) {
-    this.orientation = e.target.value;
+  @action toggleOrientation() {
+    this.orientation = this.orientation === 'vertical'
+      ? 'horizontal'
+      : 'vertical';
+
     let { cellSize, days, horizontal, svg, width, height } = this;
 
     svg

@@ -8,13 +8,13 @@
   </select>
 {{/if}}
 
-<select onchange={{action this.updateOrientation}}>
-  {{#each this.orientations as |orientation|}}
-    <option value={{orientation}}>
-      {{orientation}}
-    </option>
-  {{/each}}
-</select>
+<button
+  title="Rotate"
+  class="inline"
+  {{action this.toggleOrientation}}
+>
+  {{svg-jar "rotate" class="icon"}}
+</button>
 
 <div
   class="goal-calendar"

@@ -1,31 +1,54 @@
 {{#if @goal}}
-  <form class="goal-updater" onsubmit={{action this.submit}}>
-    {{#if (and this.today (not this.showDate))}}
-      <span role="button" {{action this.showDateInput}}>Today, </span>
-    {{else}}
-      {{input type="date" value=this.date}}
-    {{/if}}
+  <form class="goal-updater {{unless this.open "inline"}}" onsubmit={{action this.submit}}>
+    {{#if this.open}}
+      {{#if (and this.today (not this.showDate))}}
+        <span role="button" {{action this.showDateInput}}>Today</span>
+      {{else}}
+        {{input type="date" value=this.date}}
+      {{/if}}
 
-    {{#if (contains
-      @goal.type
-      (array "amount-integer" "amount-float")
-    )}}
-      <label for="amount">
-        I accomplished this much
-        <input
-          type="number"
-          name="amount"
-          min="0"
-          placeholder="0"
-          step={{if (eq @goal.type "amount-float") "any" "1"}}
-        >
-      </label>
-    {{else if (eq @goal.type "boolean")}}
-      <label for="complete">
-        I accomplished my goal today
-        <input type="checkbox" name="complete">
-      </label>
+      {{#if (contains
+        @goal.type
+        (array "amount-integer" "amount-float")
+      )}}
+        <label for="amount">
+          I accomplished this much
+          <input
+            type="number"
+            name="amount"
+            min="0"
+            placeholder="0"
+            step={{if (eq @goal.type "amount-float") "any" "1"}}
+          >
+        </label>
+      {{else if (eq @goal.type "boolean")}}
+        <label for="complete">
+          I accomplished my goal
+          <input type="checkbox" name="complete">
+        </label>
+      {{/if}}
+      <button
+        title="Save"
+        class="inline primary"
+        type="submit"
+      >
+        {{svg-jar "save" class="icon"}}
+      </button>
+      <button
+        title="Close data tracking"
+        class="inline"
+        {{action (toggle "open" this)}}
+      >
+        {{svg-jar "cancel" class="icon"}}
+      </button>
+    {{else}}
+      <button
+        title="Track data"
+        class="inline"
+        {{action (toggle "open" this)}}
+      >
+        {{svg-jar "stopwatch" class="icon"}}
+      </button>
     {{/if}}
-    <input type="submit" value="save">
   </form>
 {{/if}}

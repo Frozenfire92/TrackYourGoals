@@ -11,7 +11,11 @@ input[type="submit"] {
   text-transform: none;
   text-transform: capitalize;
 
-  color: #fff;
+  vertical-align: middle;
+
+  border-radius: 5px;
+
+  color: $font-color;
   border: 0 none;
   font-size: 0.75rem;
 
@@ -19,15 +23,19 @@ input[type="submit"] {
   -moz-appearance:    none;
   appearance:         none;
 
-  background: $primary-color;
+  background: $border-color;
 
   &:hover,
   &:active {
-    background: shade($primary-color, 25%);
+    background: shade($border-color, 25%);
   }
 
   &:focus {
     outline: 1px dotted $font-color;
+  }
+
+  &.inline {
+    padding: 0.15rem;
   }
 
   &.warning {
@@ -36,6 +44,15 @@ input[type="submit"] {
     &:hover,
     &:active {
       background: shade($warning-color, 25%);
+    }
+  }
+
+  &.primary {
+    background: $primary-color;
+
+    &:hover,
+    &:active {
+      background: shade($primary-color, 25%);
     }
   }
 }
