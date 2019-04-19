@@ -55,6 +55,12 @@ h3 {
   margin-bottom: 0.25rem;
 }
 
+h4 {
+  font-size: 1.15rem;
+  margin-bottom: 0.25rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+}
+
 nav {
   a {
     padding: 0.5rem;
@@ -81,12 +87,37 @@ form {
 // Pages
 
 main.settings {
+  section {
+    margin-bottom: 2rem;
+  }
+
+  .flex-column {
+    @include medium-screen {
+      max-width: 50%;
+    }
+    @include large-screen {
+      max-width: 33%;
+    }
+    @include x-large-screen {
+      max-width: 25%;
+    }
+  }
+
   label {
     display: block;
+    margin-bottom: 0.25rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    &:last-of-type {
+      border: none;
+    }
+    @include medium-screen {
+      border: none;
+    }
   }
 
   .visualization-scheme-preview {
     display: inline-block;
+    max-width: 90%;
     svg {
       width: 100%;
     }
