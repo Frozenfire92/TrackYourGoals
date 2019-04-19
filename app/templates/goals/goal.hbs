@@ -1,6 +1,10 @@
 <h3>
   {{#if this.editName}}
-    {{input value=this.model.name type="text"}}
+    {{input
+      type="text"
+      value=this.model.name
+      enter=(action this.save)
+    }}
     <button
       title="edit"
       class="inline primary"
