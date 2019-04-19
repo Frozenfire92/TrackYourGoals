@@ -5,7 +5,7 @@ import visualizationColorSchemes from 'track-your-goals/utils/visualization-colo
 
 export default class SettingsService extends Service {
   @inLocalStorage appColorScheme = 'light';
-  @inLocalStorage visualizationColorScheme = 'interpolateGreens';
+  @inLocalStorage visualizationColorScheme = 'interpolateBlues';
 
   visualizationColorSchemes = visualizationColorSchemes;
 }

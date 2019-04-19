@@ -124,6 +124,8 @@ main.settings {
     display: block;
     margin-bottom: 0.25rem;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+
     &:last-of-type {
       border: none;
     }

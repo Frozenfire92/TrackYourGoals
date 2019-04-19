@@ -4,6 +4,9 @@
   }
   input[type="date"] {
     display: block;
+    @include medium-screen {
+      display: inline-block;
+    }
   }
 
   &.inline {
