@@ -89,8 +89,13 @@ export default class GoalsService extends Service {
         let nextDate = moment(records[streak].date);
         let diff = today.diff(nextDate, 'days');
         if (diff === 0 || diff === 1) {
-          today = nextDate
-          streak++;
+          today = nextDate;
+          if (streak < records.length - 1) {
+            streak++;
+          }
+          else {
+            isStreak = false;
+          }
         }
         else isStreak = false;
       }
