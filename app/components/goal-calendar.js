@@ -17,6 +17,7 @@ export default class GoalCalendarComponent extends Component {
   orientations = ['vertical', 'horizontal'];
 
   format = d3.timeFormat('%Y-%m-%d');
+  shownTooltip = null;
 
   get cellSize() { return this.args.cellSize || 10; }
   get horizontal() { return this.orientation === 'horizontal'; }
@@ -41,6 +42,9 @@ export default class GoalCalendarComponent extends Component {
   }
 
   @action updateData() {
+    this.shownTooltip = null;
+    this.tooltip.style('opacity', 0);
+
     let { titles } = this;
     let { data } = this.args;
 
@@ -70,13 +74,18 @@ export default class GoalCalendarComponent extends Component {
 
     days
       .attr('y', horizontal ? week : weeks)
-      .attr('x', horizontal ? weeks : week)
+      .attr('x', horizontal ? weeks : week);
+
+    this.shownTooltip = null;
+    this.tooltip.style('opacity', 0);
   }
 
   @action updateYear(e) {
     this.year = parseInt(e.target.value);
     let { days, year } = this;
-    days.data(d3.timeDays(new Date(year, 0, 1), new Date(year + 1, 0, 1)))
+    days.data(d3.timeDays(new Date(year, 0, 1), new Date(year + 1, 0, 1)));
+    this.shownTooltip = null;
+    this.tooltip.style('opacity', 0);
   }
 
   @action updateColors() {
@@ -165,6 +174,43 @@ export default class GoalCalendarComponent extends Component {
         return data.hasOwnProperty(key)
           ? `${key}: ${data[key]}`
           : key;
+      });
+
+    this.tooltip = d3.select(element)
+      .append("div")
+      .style("opacity", 0)
+      .attr("class", "tooltip")
+      // .on('click', (d) => {
+      //   console.log('click tooltip', d, this.shownTooltip);
+      // });
+
+    this.days
+      .on("click", (d) => {
+        let key = this.format(d);
+
+        if (this.shownTooltip === key) {
+          this.shownTooltip = null;
+          this.tooltip.style('opacity', 0);
+        }
+        else {
+          this.shownTooltip = key;
+          let value = data[key];
+          let side = 'left';
+          let opposite = 'right';
+          let x = d3.event.pageX;
+          if (d3.event.pageX > (window.screen.width - 200)) {
+            side = 'right';
+            opposite = 'left';
+            x = window.screen.width - d3.event.pageX;
+          }
+
+          this.tooltip
+            .style('opacity', 1)
+            .html(key + "<br>" + value)
+            .style(side, `${x}px`)
+            .style(opposite, null)
+            .style("top", (d3.event.pageY) + "px");
+        }
       });
   }
 }
