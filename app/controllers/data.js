@@ -2,6 +2,8 @@ import Controller from '@ember/controller';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
+import moment from 'moment';
+
 export default class DataController extends Controller {
   @tracked importUnderstood = false;
 
@@ -23,7 +25,7 @@ export default class DataController extends Controller {
     let textData = JSON.stringify(localStorage);
 
     // Generate and download file
-    let fileName = 'track-your-goals-backup.json';
+    let fileName = `track-your-goals-backup-${moment().format('YYYY-MM-DD-HH-mm-ss')}.json`;
     let fileType = 'application/json;charset=utf-8';
     let file;
     try {
