@@ -1,13 +1,18 @@
-<div class="goal-list">
-  {{#link-to "goals.create" class="new"}}
-    <h3>+ New Goal</h3>
-    <span>start your streak today</span>
+<div class="goal-list flex-column space-between">
+  {{#link-to "goals.create" class="new flex-row"}}
+    <span>
+      {{svg-jar 'add' class="icon"}}
+    </span>
+    <span>&nbsp; New goal</span>
   {{/link-to}}
   {{#each @goals as |goal|}}
-    {{#link-to "goals.goal" goal.id}}
-      <h3>{{goal.name}}</h3>
-      <span>{{compute (action this.goals.computeStreak goal)}} day streak</span>
-      <span>{{goal.records.length}} days recorded</span>
+    {{#link-to "goals.goal" goal.id class="flex-row space-between"}}
+      <span>{{goal.name}}</span>
+      <span>
+        {{goal.records.length}} days recorded
+        &middot;
+        {{compute (action this.goals.computeStreak goal)}} day streak
+      </span>
     {{/link-to}}
   {{/each}}
 </div>

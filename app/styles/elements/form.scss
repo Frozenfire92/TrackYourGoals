@@ -21,5 +21,9 @@ select {
   select {
     color: $dark-font-color;
     border-bottom: 1px solid $dark-border-color;
+
+    &[type="submit"] {
+      border: none;
+    }
   }
 }

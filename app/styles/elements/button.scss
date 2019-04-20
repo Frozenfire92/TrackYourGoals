@@ -59,6 +59,7 @@ input[type="submit"] {
   .button,
   input[type="submit"] {
     background: $dark-border-color;
+    color: $font-color;
     &:hover,
     &:active {
       background: tint($dark-border-color, 25%);
