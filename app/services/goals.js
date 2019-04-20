@@ -92,7 +92,6 @@ export default class GoalsService extends Service {
           today = nextDate;
           streak++;
           if (streak >= records.length - 1) {
-            streak++;
             isStreak = false;
           }
         }
