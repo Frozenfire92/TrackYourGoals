@@ -1,0 +1,13 @@
+form {
+  label {
+    display: block;
+    padding: 0.25rem;
+  }
+  input,
+  select {
+    background: none;
+    border: none;
+    border-bottom: 1px solid $font-color;
+    padding: 0.5rem;
+  }
+}
