@@ -5074,7 +5074,9 @@ Object.defineProperty(e,"__esModule",{value:!0}),e.default={content:'<path d="M1
 Object.defineProperty(e,"__esModule",{value:!0}),e.default={content:'<path d="M18.414 4.414l1.172 1.172a2 2 0 0 1 0 2.828L8 20H4v-4L15.586 4.414a2 2 0 0 1 2.828 0zM14 6l4 4"/>',attrs:{xmlns:"http://www.w3.org/2000/svg",width:"24",height:"24",viewBox:"0 0 24 24"}}}),define("ember-svg-jar/inlined/rotate",["exports"],function(e){"use strict"
 Object.defineProperty(e,"__esModule",{value:!0}),e.default={content:'<path d="M22 12l-3 3-3-3M2 12l3-3 3 3"/><path d="M19.016 14v-1.95A7.05 7.05 0 0 0 8 6.22M16.016 17.845A7.05 7.05 0 0 1 5 12.015V10M5 10V9M19 15v-1"/>',attrs:{xmlns:"http://www.w3.org/2000/svg",width:"24",height:"24",viewBox:"0 0 24 24"}}}),define("ember-svg-jar/inlined/save",["exports"],function(e){"use strict"
 Object.defineProperty(e,"__esModule",{value:!0}),e.default={content:'<path d="M17.293 3.293L21 7v13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h12.586a1 1 0 0 1 .707.293z"/><path d="M7 13h10v8H7zM8 3h8v5H8z"/>',attrs:{xmlns:"http://www.w3.org/2000/svg",width:"24",height:"24",viewBox:"0 0 24 24"}}}),define("ember-svg-jar/inlined/stopwatch",["exports"],function(e){"use strict"
-Object.defineProperty(e,"__esModule",{value:!0}),e.default={content:'<circle cx="12" cy="13" r="8"/><path d="M12 9v4m6-6l2-2m-5-3H9"/>',attrs:{xmlns:"http://www.w3.org/2000/svg",width:"24",height:"24",viewBox:"0 0 24 24"}}}),define("ember-svg-jar/utils/make-helper",["exports"],function(e){"use strict"
+Object.defineProperty(e,"__esModule",{value:!0}),e.default={content:'<circle cx="12" cy="13" r="8"/><path d="M12 9v4m6-6l2-2m-5-3H9"/>',attrs:{xmlns:"http://www.w3.org/2000/svg",width:"24",height:"24",viewBox:"0 0 24 24"}}}),define("ember-svg-jar/inlined/upload",["exports"],function(e){"use strict"
+Object.defineProperty(e,"__esModule",{value:!0}),e.default={content:'<path d="M12 4v13M7 8l5-5 5 5M20 21H4"/>',attrs:{xmlns:"http://www.w3.org/2000/svg",width:"24",height:"24",viewBox:"0 0 24 24"}}})
+define("ember-svg-jar/utils/make-helper",["exports"],function(e){"use strict"
 Object.defineProperty(e,"__esModule",{value:!0}),e.default=function(e){var n=void 0
 n=Ember.Helper&&Ember.Helper.helper?Ember.Helper.helper(function(n,r){var i=t(n,1),o=i[0]
 return e(o,r)}):Ember.Handlebars.makeBoundHelper(function(t,n){return e(t,n.hash||{})})
@@ -5082,8 +5084,7 @@ return n}
 var t=function(){return function(e,t){if(Array.isArray(e))return e
 if(Symbol.iterator in Object(e))return function(e,t){var n=[],r=!0,i=!1,o=void 0
 try{for(var a,u=e[Symbol.iterator]();!(r=(a=u.next()).done)&&(n.push(a.value),!t||n.length!==t);r=!0);}catch(s){i=!0,o=s}finally{try{!r&&u.return&&u.return()}finally{if(i)throw o}}return n}(e,t)
-throw new TypeError("Invalid attempt to destructure non-iterable instance")}}()})
-define("ember-svg-jar/utils/make-svg",["exports"],function(e){"use strict"
+throw new TypeError("Invalid attempt to destructure non-iterable instance")}}()}),define("ember-svg-jar/utils/make-svg",["exports"],function(e){"use strict"
 function t(e){return Object.keys(e).map(function(t){return!Ember.isNone(e[t])&&t+'="'+e[t]+'"'}).filter(function(e){return e}).join(" ")}function n(e){return"<svg "+t(arguments.length>1&&void 0!==arguments[1]?arguments[1]:{})+'><use xlink:href="'+e+'" /></svg>'}function r(e,n){var r=arguments.length>2&&void 0!==arguments[2]?arguments[2]:{},i=n(e)
 if(i){var o=i.attrs?Ember.assign({},i.attrs,r):r,a=r.size
 return a&&(o.width=parseFloat(o.width)*a||o.width,o.height=parseFloat(o.height)*a||o.height,delete o.size),"<svg "+t(o)+">"+i.content+"</svg>"}console.warn("ember-svg-jar: Missing inline SVG for "+e)}Object.defineProperty(e,"__esModule",{value:!0}),e.formatAttrs=t,e.symbolUseFor=n,e.inlineSvgFor=r,e.default=function(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{},i=arguments[2]
