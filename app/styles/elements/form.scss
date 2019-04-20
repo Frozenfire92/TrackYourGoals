@@ -5,8 +5,21 @@ label {
 
 input,
 select {
+  color: $font-color;
   background: none;
   border: none;
-  border-bottom: 1px solid $font-color;
+  border-bottom: 1px solid $border-color;
   padding: 0.5rem;
+
+  &[type="file"] {
+    display: none;
+  }
+}
+
+.dark {
+  input,
+  select {
+    color: $dark-font-color;
+    border-bottom: 1px solid $dark-border-color;
+  }
 }

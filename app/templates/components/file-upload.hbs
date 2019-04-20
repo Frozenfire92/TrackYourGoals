@@ -1,5 +1,9 @@
-<input
-  type="file"
-  onchange={{this.change}}
-  ...attributes
->
+<label class="button" ...attributes>
+  {{svg-jar "upload" class="icon"}}
+  <input
+    type="file"
+    name="filepload"
+    onchange={{this.change}}
+    ...attributes
+  >
+</label>

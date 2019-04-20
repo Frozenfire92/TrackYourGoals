@@ -14,6 +14,11 @@
 html {
   background: $bg-color;
   color: $font-color;
+
+  &.dark {
+    background: $dark-bg-color;
+    color: $dark-font-color;
+  }
 }
 
 body {
@@ -30,13 +35,21 @@ a {
   }
 }
 
+.dark a:focus {
+  border-bottom: 1px solid $dark-border-color;
+}
+
 header {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   padding: 0.5rem 1rem;
-  background: #eef0f2;
+  background: $bg-color;
+}
+
+.dark header {
+  background: $dark-bg-color;
 }
 
 main {
@@ -65,7 +78,11 @@ h3 {
 h4 {
   font-size: 1.15rem;
   margin-bottom: 0.25rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  border-bottom: 1px solid $border-color;
+}
+
+.dark h4 {
+  border-bottom: 1px solid $dark-border-color;
 }
 
 nav {
@@ -75,12 +92,23 @@ nav {
     color: $font-color;
 
     &.active {
-      border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+      border-bottom: 1px solid $border-color;
     }
 
     &:focus {
-      border-bottom: 3px solid rgba(0, 0, 0, 0.25);
+      border-bottom: 3px solid $border-color;
     }
+  }
+}
+
+.dark nav a {
+  color: $dark-font-color;
+  &.active {
+    border-bottom: 1px solid $dark-border-color;
+  }
+
+  &:focus {
+    border-bottom: 3px solid $dark-border-color;
   }
 }
 
@@ -95,14 +123,6 @@ nav {
   stroke-linecap: square;
   stroke-linejoin: miter;
   fill: none;
-
-  &.warning {
-    stroke: $warning-color;
-  }
-
-  &.primary {
-    stroke: $primary-color;
-  }
 }
 
 // Pages
@@ -127,14 +147,14 @@ main.settings {
   label {
     display: block;
     margin-bottom: 0.25rem;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid $border-color;
     cursor: pointer;
 
     &:last-of-type {
-      border: none;
+      border: none !important;
     }
     @include medium-screen {
-      border: none;
+      border: none !important;
     }
   }
 
@@ -145,4 +165,8 @@ main.settings {
       width: 100%;
     }
   }
+}
+
+.dark main.settings label {
+  border-bottom: 1px solid $dark-border-color;
 }

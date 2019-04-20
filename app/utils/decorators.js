@@ -32,3 +32,15 @@ export function inLocalStorage( target, propertyKey, descriptor ) {
 
   return newDescriptor;
 }
+
+export function setHtmlClass(target, propertyKey, descriptor) {
+  const { set: oldSet, get: oldGet } = descriptor;
+
+  let init = oldGet.call(descriptor);
+  document.documentElement.classList = [init];
+
+  descriptor.set = function(value) {
+    oldSet.call(this, value);
+    document.documentElement.classList = [value];
+  };
+}

@@ -1,7 +1,8 @@
 button,
+.button,
 input[type="submit"] {
   padding: 0.5rem;
-
+  display: inline-block;
   cursor: pointer;
   user-select: none;
   transition: all 150ms linear;
@@ -35,20 +36,32 @@ input[type="submit"] {
   }
 
   &.warning {
-    background: $warning-color;
+    background: $warning-color !important;
 
     &:hover,
     &:active {
-      background: shade($warning-color, 25%);
+      background: shade($warning-color, 25%) !important;
     }
   }
 
   &.primary {
-    background: $primary-color;
+    background: $primary-color !important;
 
     &:hover,
     &:active {
-      background: shade($primary-color, 25%);
+      background: shade($primary-color, 25%) !important;
+    }
+  }
+}
+
+.dark {
+  button,
+  .button,
+  input[type="submit"] {
+    background: $dark-border-color;
+    &:hover,
+    &:active {
+      background: tint($dark-border-color, 25%);
     }
   }
 }
