@@ -33,8 +33,8 @@ export default class GoalsService extends Service {
       let goal = { id, name, type, records: [] };
 
       this.goals = [
-        ...this.goals,
-        goal
+        goal,
+        ...this.goals
       ];
 
       return goal;
@@ -43,8 +43,8 @@ export default class GoalsService extends Service {
 
   @action save(goal) {
     this.goals = [
-      ...this.goals.rejectBy('id', goal.id),
-      goal
+      goal,
+      ...this.goals.rejectBy('id', goal.id)
     ];
   }
 
