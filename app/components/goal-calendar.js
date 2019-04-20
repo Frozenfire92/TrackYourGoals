@@ -206,7 +206,7 @@ export default class GoalCalendarComponent extends Component {
 
           this.tooltip
             .style('opacity', 1)
-            .html(key + "<br>" + value)
+            .html(`${key}<br>${value || ''}`)
             .style(side, `${x}px`)
             .style(opposite, null)
             .style("top", (d3.event.pageY) + "px");

@@ -11,6 +11,11 @@ export default class GoalsGoalController extends Controller {
   @tracked trigger = false;
 
   @computed('model.records.@each.value')
+  get streak() {
+    return this.goals.computeStreak(this.model);
+  }
+
+  @computed('model.records.@each.value')
   get dataHash() {
     let data = {};
     this.model.records.forEach(record =>
