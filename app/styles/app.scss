@@ -7,6 +7,9 @@
 @import 'elements';
 @import 'components';
 
+*:focus {
+  outline: none;
+}
 
 html {
   background: $bg-color;
@@ -69,6 +72,10 @@ nav {
 
     &.active {
       border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+    }
+
+    &:focus {
+      border-bottom: 3px solid rgba(0, 0, 0, 0.25);
     }
   }
 }
