@@ -1,6 +1,6 @@
 button,
 input[type="submit"] {
-  padding: 0.5rem 0.75rem;
+  padding: 0.5rem;
 
   cursor: pointer;
   user-select: none;
@@ -32,10 +32,6 @@ input[type="submit"] {
 
   &:focus {
     outline: 1px dotted $font-color;
-  }
-
-  &.inline {
-    padding: 0.15rem;
   }
 
   &.warning {

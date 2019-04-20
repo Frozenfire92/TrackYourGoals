@@ -29,14 +29,13 @@
       {{/if}}
       <button
         title="Save"
-        class="inline primary"
+        class="primary"
         type="submit"
       >
         {{svg-jar "save" class="icon"}}
       </button>
       <button
         title="Close data tracking"
-        class="inline"
         {{action (toggle "open" this)}}
       >
         {{svg-jar "cancel" class="icon"}}
@@ -44,7 +43,6 @@
     {{else}}
       <button
         title="Track data"
-        class="inline"
         {{action (toggle "open" this)}}
       >
         {{svg-jar "stopwatch" class="icon"}}

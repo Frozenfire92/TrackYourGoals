@@ -7,7 +7,7 @@
     }}
     <button
       title="edit"
-      class="inline primary"
+      class="primary"
       {{action this.save}}
     >
       {{svg-jar "save" class="icon"}}
@@ -17,14 +17,13 @@
     {{#if (not-eq this.model.id "demo")}}
       <button
         title="edit"
-        class="inline"
         {{action (toggle "editName" this)}}
       >
         {{svg-jar "edit" class="icon"}}
       </button>
       <button
         title="delete"
-        class="inline warning"
+        class="warning"
         {{action this.delete}}
       >
         {{svg-jar "delete" class="icon"}}
@@ -33,7 +32,7 @@
   {{/if}}
 </h3>
 
-<div>{{this.model.records.length}} days recorded | {{this.model.streak}} day streak</div>
+<div>{{this.model.records.length}} days recorded &middot; {{this.model.streak}} day streak</div>
 
 <GoalUpdater
   @goal={{this.model}}
