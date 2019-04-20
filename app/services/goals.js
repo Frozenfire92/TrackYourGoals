@@ -82,16 +82,18 @@ export default class GoalsService extends Service {
       .filterBy('value')
       .reverse();
 
-    let isStreak = true;
     let streak = 0;
-    while (isStreak) {
-      let nextDate = moment(records[streak].date);
-      let diff = today.diff(nextDate, 'days');
-      if (diff === 0 || diff === 1) {
-        today = nextDate
-        streak++;
+    if (records.length) {
+      let isStreak = true;
+      while (isStreak) {
+        let nextDate = moment(records[streak].date);
+        let diff = today.diff(nextDate, 'days');
+        if (diff === 0 || diff === 1) {
+          today = nextDate
+          streak++;
+        }
+        else isStreak = false;
       }
-      else isStreak = false;
     }
 
     return streak;

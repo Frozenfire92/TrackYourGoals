@@ -1,19 +1,22 @@
 import Component from '@glimmer/component';
-import { action } from '@ember/object';
+import { action, computed } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
+
+import moment from 'moment';
 
 export default class GoalUpdaterComponent extends Component {
   constructor(){
     super(...arguments);
-    this.date = (new Date()).toISOString().slice(0, 10);
+    this.date = (new moment()).format('YYYY-MM-DD');
   }
 
   @tracked date = null;
   @tracked showDate = false;
   @tracked open = false;
 
+  @computed('date')
   get today() {
-    if (this.date === (new Date()).toISOString().slice(0, 10)) {
+    if (this.date === (new moment()).format('YYYY-MM-DD')) {
       this.showDate = false;
       return true;
     }
