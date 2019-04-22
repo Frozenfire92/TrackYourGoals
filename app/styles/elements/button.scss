@@ -14,11 +14,9 @@ input[type="submit"] {
 
   vertical-align: middle;
 
-  border-radius: 5px;
-
   color: $font-color;
-  border: 0 none;
-  font-size: 0.75rem;
+  border: none;
+  font-size: 1rem;
 
   -webkit-appearance: none;
   -moz-appearance:    none;
@@ -33,6 +31,10 @@ input[type="submit"] {
 
   &:focus {
     outline: 2px solid $font-color;
+  }
+
+  &.wide {
+    padding: 0.5rem 1rem;
   }
 
   &.warning {

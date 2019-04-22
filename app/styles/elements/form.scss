@@ -1,6 +1,7 @@
 label {
   display: block;
   padding: 0.25rem;
+  margin-bottom: 0.25rem;
 }
 
 input,
@@ -11,10 +12,15 @@ select {
   border-bottom: 1px solid $border-color;
   border-radius: 0;
   padding: 0.5rem;
+  font-size: 1rem;
 
   &[type="file"] {
     display: none;
   }
+}
+
+input[type="submit"] {
+  margin-top: 1rem;
 }
 
 .dark {
@@ -22,9 +28,5 @@ select {
   select {
     color: $dark-font-color;
     border-bottom: 1px solid $dark-border-color;
-
-    &[type="submit"] {
-      border: none;
-    }
   }
 }
