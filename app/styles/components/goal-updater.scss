@@ -2,9 +2,8 @@
   width: 100%;
   text-align: center;
 
-  div[role="button"] {
+  [role="button"] {
     text-decoration: underline;
-    margin-bottom: 1rem;
   }
 
   input[type="date"] {

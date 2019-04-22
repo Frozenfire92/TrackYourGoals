@@ -64,14 +64,21 @@ export default class GoalsService extends Service {
       case 'amount-float': cleanValue = parseFloat(value) || 0; break;
     }
 
+
     if (existingRecord) {
-      set(existingRecord, 'value', cleanValue);
+      if (!cleanValue) {
+        set(goal, 'records', goal.records.without(existingRecord).sortBy('date'));
+      }
+      else {
+        set(existingRecord, 'value', cleanValue);
+      }
     }
     else {
-      goal.records.push({ date, value: cleanValue });
+      if (cleanValue) {
+        goal.records.push({ date, value: cleanValue });
+        set(goal, 'records', goal.records.sortBy('date'));
+      }
     }
-
-    set(goal, 'records', goal.records.sortBy('date'));
 
     if (goal.id !== 'demo') {
       this.save(goal);

@@ -2,10 +2,12 @@
   <form class="goal-updater" onsubmit={{action this.submit}}>
 
     {{#if @options.startDate}}
-      {{moment-format @options.startDate 'MMMM Do YYYY'}}
+      <p>
+        {{moment-format @options.startDate 'MMMM Do YYYY'}}
+      </p>
     {{else}}
       {{#if (and this.today (not this.showDate))}}
-        <div role="button" {{action this.showDateInput}}>Today,</div>
+        <p role="button" {{action this.showDateInput}}>Today,</p>
       {{else}}
         {{input type="date" value=this.date}}
       {{/if}}
@@ -30,7 +32,7 @@
     {{else if (eq @model.type "boolean")}}
       <label>
         I accomplished my goal
-        <input type="checkbox" name="complete">
+        <input type="checkbox" name="complete" checked={{@options.startValue}}>
       </label>
     {{/if}}
     <footer>
