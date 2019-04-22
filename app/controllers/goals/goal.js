@@ -6,6 +6,7 @@ import { tracked } from '@glimmer/tracking';
 export default class GoalsGoalController extends Controller {
   @service goals;
   @service settings;
+  @service modal;
 
   @tracked editName = false;
   @tracked trigger = false;
@@ -22,6 +23,24 @@ export default class GoalsGoalController extends Controller {
       data[record.date] = record.value
     );
     return data;
+  }
+
+  @action openGoalUpdaterModal(goal, date) {
+    let startValue = date
+      ? (goal.records.findBy('date', date) || { value: null }).value
+      : null;
+    this.modal.open({
+      title: date ? 'Update Record' : 'New Record',
+      successAction: ([nudate, nuvalue]) => {
+        this.goals.saveRecord(this.model, nudate, nuvalue);
+      },
+      component: 'goal-updater',
+      model: goal,
+      options: {
+        startDate: date,
+        startValue
+      }
+    });
   }
 
   @action save() {

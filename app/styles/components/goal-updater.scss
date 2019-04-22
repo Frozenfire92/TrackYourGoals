@@ -1,19 +1,28 @@
 .goal-updater {
-  span[role="button"] {
+  width: 100%;
+  text-align: center;
+
+  div[role="button"] {
     text-decoration: underline;
+    margin-bottom: 1rem;
   }
+
   input[type="date"] {
     display: block;
+    margin: 0 auto 1rem;
     @include medium-screen {
       display: inline-block;
     }
   }
 
-  &.inline {
-    display: inline-block;
+  input[type="number"] {
+    width: 5rem;
+    text-align: center;
   }
-  label {
-    display: inline;
-    padding: 0;
+
+  footer {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
   }
 }

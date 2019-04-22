@@ -187,30 +187,7 @@ export default class GoalCalendarComponent extends Component {
     this.days
       .on("click", (d) => {
         let key = this.format(d);
-
-        if (this.shownTooltip === key) {
-          this.shownTooltip = null;
-          this.tooltip.style('opacity', 0);
-        }
-        else {
-          this.shownTooltip = key;
-          let value = data[key];
-          let side = 'left';
-          let opposite = 'right';
-          let x = d3.event.pageX;
-          if (d3.event.pageX > (window.screen.width - 200)) {
-            side = 'right';
-            opposite = 'left';
-            x = window.screen.width - d3.event.pageX;
-          }
-
-          this.tooltip
-            .style('opacity', 1)
-            .html(`${key}<br>${value || ''}`)
-            .style(side, `${x}px`)
-            .style(opposite, null)
-            .style("top", (d3.event.pageY) + "px");
-        }
+        this.args.openGoalUpdater(key);
       });
   }
 }

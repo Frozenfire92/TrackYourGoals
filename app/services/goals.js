@@ -15,6 +15,7 @@ export default class GoalsService extends Service {
       id: 'demo',
       name: 'demo',
       type: 'amount-integer',
+      // TODO make the current year dynamically
       records: d3.timeDays(new Date(2019, 0, 1), new Date(2020, 0, 1))
         .map(n => ({
           date: n.toISOString().slice(0, 10),
@@ -57,14 +58,19 @@ export default class GoalsService extends Service {
   @action saveRecord(goal, date, value) {
     let existingRecord = goal.records.findBy('date', date);
 
-    if (existingRecord) {
-      set(existingRecord, 'value', value);
-    }
-    else {
-      goal.records.push({ date, value });
+    let cleanValue = value;
+    switch (goal.type) {
+      case 'amount-integer': cleanValue = parseInt(value) || 0; break;
+      case 'amount-float': cleanValue = parseFloat(value) || 0; break;
     }
 
-    // goal.records = goal.records.sortBy('date');
+    if (existingRecord) {
+      set(existingRecord, 'value', cleanValue);
+    }
+    else {
+      goal.records.push({ date, value: cleanValue });
+    }
+
     set(goal, 'records', goal.records.sortBy('date'));
 
     if (goal.id !== 'demo') {
@@ -80,18 +86,19 @@ export default class GoalsService extends Service {
       .map(n => ({ ...n }))
       .filter(n => n.date <= shortToday)
       .filterBy('value')
+      .sortBy('date')
       .reverse();
 
     let streak = 0;
     if (records.length) {
-      let isStreak = true;
+       let isStreak = true;
       while (isStreak) {
         let nextDate = moment(records[streak].date);
         let diff = today.diff(nextDate, 'days');
         if (diff === 0 || diff === 1) {
           today = nextDate;
           streak++;
-          if (streak >= records.length - 1) {
+          if (streak > records.length - 1) {
             isStreak = false;
           }
         }

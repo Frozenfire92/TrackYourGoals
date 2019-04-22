@@ -1,6 +1,7 @@
 import Component from '@glimmer/component';
 import { action, computed } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
+import { inject as service } from '@ember/service';
 
 import moment from 'moment';
 
@@ -10,9 +11,10 @@ export default class GoalUpdaterComponent extends Component {
     this.date = (new moment()).format('YYYY-MM-DD');
   }
 
+  @service modal;
+
   @tracked date = null;
   @tracked showDate = false;
-  @tracked open = false;
 
   @computed('date')
   get today() {
@@ -32,7 +34,7 @@ export default class GoalUpdaterComponent extends Component {
 
     let value;
 
-    switch (this.args.goal.type) {
+    switch (this.args.model.type) {
       case 'boolean': value = e.target.complete.checked; break;
       case 'amount-integer':
       case 'amount-float': value = e.target.amount.value; break;
@@ -40,10 +42,9 @@ export default class GoalUpdaterComponent extends Component {
 
     if (this.date && this.args.submit && typeof this.args.submit === 'function') {
       this.args.submit(
-        this.date,
+        this.args.options.startDate || this.date,
         value
       );
-      this.open = !this.open;
     }
   }
 }

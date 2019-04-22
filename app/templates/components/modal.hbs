@@ -1,4 +1,25 @@
-{{#if @type}}
-  <div class="modal"></div>
+{{#if this.modal.isOpen}}
   <div class="backdrop"></div>
+  <div class="modal">
+    <h3>{{this.modal.title}}</h3>
+
+    {{#if this.modal.message}}
+      <p>{{this.modal.message}}</p>
+    {{/if}}
+
+    {{#if this.modal.component}}
+      {{component
+        this.modal.component
+        submit=(action this.modal.ok)
+        cancel=(action this.modal.cancel)
+        model=this.modal.model
+        options=this.modal.options
+      }}
+    {{else}}
+      <footer>
+        <button {{action this.modal.cancel}}>Cancel</button>
+        <button {{action this.modal.ok}}>{{or this.modal.successText 'OK'}}</button>
+      </footer>
+    {{/if}}
+  </div>
 {{/if}}

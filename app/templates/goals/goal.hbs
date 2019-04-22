@@ -38,12 +38,16 @@
   {{this.streak}} day streak
 </div>
 
-<GoalUpdater
-  @goal={{this.model}}
-  @submit={{action this.goals.saveRecord this.model}}
-/>
+<button
+  title="Track data"
+  {{action this.openGoalUpdaterModal this.model}}
+>
+  {{svg-jar "stopwatch" class="icon"}}
+</button>
+
 <GoalCalendar
   @data={{this.dataHash}}
   @type={{this.model.type}}
+  @openGoalUpdater={{action this.openGoalUpdaterModal this.model}}
   @colorScheme={{this.settings.visualizationColorScheme}}
 />

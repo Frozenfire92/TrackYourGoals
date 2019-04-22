@@ -1,10 +1,13 @@
 import Controller from '@ember/controller';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
+import { inject as service } from '@ember/service';
 
 import moment from 'moment';
 
 export default class DataController extends Controller {
+  @service modal;
+
   @tracked importUnderstood = false;
 
   @action importData(name, data, type) {
@@ -44,10 +47,11 @@ export default class DataController extends Controller {
   }
 
   @action resetData() {
-    let confirmed = window.confirm('Delete all data, are you sure?');
-
-    if (confirmed) {
-      localStorage.clear();
-    }
+    this.modal.open({
+      title: 'Delete all data',
+      message: 'Are you sure? This action can\'t be reversed.',
+      successAction: () => localStorage.clear(),
+      successText: 'delete'
+    });
   }
 }

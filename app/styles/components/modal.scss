@@ -1,0 +1,40 @@
+.modal {
+  position: fixed;
+  top: 4rem;
+  left: 2rem;
+  right: 2rem;
+  background: white;
+  padding: 1.2rem;
+  animation: fade-in 0.25s ease-in 1;
+  max-width: 400px;
+  margin: 0 auto;
+
+  &.open {
+    opacity: 1;
+  }
+
+  h3 {
+    margin-bottom: 1rem;
+  }
+
+  footer {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.backdrop {
+  background: rgba(0,0,0,0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  animation: fade-in 0.15s ease-in 1;
+}
+
+@keyframes fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
