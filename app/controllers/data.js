@@ -12,15 +12,32 @@ export default class DataController extends Controller {
 
   @action importData(name, data, type) {
     if (type === 'application/json') {
+      let parsedData;
+      try {
+        parsedData = JSON.parse(data);
+      }
+      catch {
+        this.modal.open({
+          title: 'Import failed',
+          message: 'data not deleted as file uploaded could not be read'
+        });
+        return;
+      }
       localStorage.clear();
-      let parsedData = JSON.parse(data);
+      this.modal.open({
+        title: 'Import successful',
+        message: 'data deleted and file loaded'
+      });
       Object.keys(parsedData).forEach(key =>
         localStorage.setItem(key, parsedData[key])
       );
       this.importUnderstood = false;
     }
     else {
-      alert(`Cant process file of type: ${type}`);
+      this.modal.open({
+        title: 'Import failed',
+        message: `Cant process file of type: ${type}`
+      });
     }
   }
 
