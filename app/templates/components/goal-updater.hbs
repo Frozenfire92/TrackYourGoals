@@ -11,7 +11,7 @@
         @goal.type
         (array "amount-integer" "amount-float")
       )}}
-        <label for="amount">
+        <label>
           I accomplished this much
           <input
             type="number"
@@ -22,7 +22,7 @@
           >
         </label>
       {{else if (eq @goal.type "boolean")}}
-        <label for="complete">
+        <label>
           I accomplished my goal
           <input type="checkbox" name="complete">
         </label>
