@@ -10,7 +10,6 @@ select {
   border: none;
   border-bottom: 1px solid $border-color;
   border-radius: 0;
-  -webkit-appearance: none;
   padding: 0.5rem;
 
   &[type="file"] {
