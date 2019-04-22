@@ -10,6 +10,7 @@
 
   .day {
     stroke: shade($bg-color, 15%);
+    cursor: pointer;
   }
 
   .month {
