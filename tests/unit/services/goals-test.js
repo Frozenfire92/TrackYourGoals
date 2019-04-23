@@ -278,8 +278,6 @@ module('Unit | Service | goals', function(hooks) {
         { date: moment(yesteryesterday).subtract(1, 'days').format('YYYY-MM-DD'), value: 1 }
       ];
 
-      console.log('records', records);
-
       assert.equal(service.computeStreak({ records }), 0);
     });
 
