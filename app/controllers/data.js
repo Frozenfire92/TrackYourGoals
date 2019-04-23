@@ -9,7 +9,7 @@ export default class DataController extends Controller {
   @service modal;
   @service goals;
 
-  csvHeader = 'id,goal,type,date,value';
+  csvHeader = 'id,name,type,date,value';
 
   @tracked importUnderstood = false;
 
@@ -32,8 +32,7 @@ export default class DataController extends Controller {
       );
       this.importUnderstood = false;
       this.modal.open({
-        title: 'Import successful',
-        message: 'data deleted and file loaded'
+        title: 'Import successful'
       });
     }
     else if (type === 'text/csv') {
@@ -88,8 +87,7 @@ export default class DataController extends Controller {
         ));
         this.importUnderstood = false;
         this.modal.open({
-          title: 'Import successful',
-          message: 'data deleted and file loaded'
+          title: 'Import successful'
         });
       }
       catch {
@@ -153,6 +151,7 @@ export default class DataController extends Controller {
       title: 'Delete all data',
       message: 'Are you sure? This action can\'t be reversed.',
       successAction: () => localStorage.clear(),
+      cancelAction: true,
       successText: 'delete'
     });
   }
