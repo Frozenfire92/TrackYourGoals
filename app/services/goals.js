@@ -10,7 +10,7 @@ import { inLocalStorage } from 'track-your-goals/utils/decorators';
 export default class GoalsService extends Service {
   @inLocalStorage goals = [];
 
-  demo() {
+  get demo() {
     return {
       id: 'demo',
       name: 'demo',
@@ -51,70 +51,79 @@ export default class GoalsService extends Service {
     ];
   }
 
-  @action delete(goal) {
+  @action delete({ id }) {
     this.goals = [
-      ...this.goals.rejectBy('id', goal.id)
+      ...this.goals.rejectBy('id', id)
     ];
   }
 
   @action saveRecord(goal, date, value) {
-    let existingRecord = goal.records.findBy('date', date);
+    if (goal) {
+      let existingRecord = goal.records.findBy('date', date);
 
-    let cleanValue = value;
-    switch (goal.type) {
-      case 'amount-integer': cleanValue = parseInt(value) || 0; break;
-      case 'amount-float': cleanValue = parseFloat(value) || 0; break;
-    }
+      let cleanValue = value;
+      switch (goal.type) {
+        case 'amount-integer': cleanValue = parseInt(value) || 0; break;
+        case 'amount-float': cleanValue = parseFloat(value) || 0; break;
+      }
 
 
-    if (existingRecord) {
-      if (!cleanValue) {
-        set(goal, 'records', goal.records.without(existingRecord).sortBy('date'));
+      if (existingRecord) {
+        if (!cleanValue) {
+          set(goal, 'records', goal.records.without(existingRecord).sortBy('date'));
+        }
+        else {
+          set(existingRecord, 'value', cleanValue);
+        }
       }
       else {
-        set(existingRecord, 'value', cleanValue);
+        if (cleanValue) {
+          goal.records.push({ date, value: cleanValue });
+          set(goal, 'records', goal.records.sortBy('date'));
+        }
       }
+
+      if (goal.id !== 'demo') {
+        this.save(goal);
+      }
+
+      return true;
     }
     else {
-      if (cleanValue) {
-        goal.records.push({ date, value: cleanValue });
-        set(goal, 'records', goal.records.sortBy('date'));
-      }
-    }
-
-    if (goal.id !== 'demo') {
-      this.save(goal);
+      return false;
     }
   }
 
   @action computeStreak(goal) {
-    let today = moment();
-    let shortToday = today.format('YYYY-MM-DD');
-
-    let records = goal.records
-      .map(n => ({ ...n }))
-      .filter(n => n.date <= shortToday)
-      .filterBy('value')
-      .sortBy('date')
-      .reverse();
-
     let streak = 0;
-    if (records.length) {
-       let isStreak = true;
-      while (isStreak) {
-        let nextDate = moment(records[streak].date);
-        let diff = today.diff(nextDate, 'days');
-        if (diff === 0 || diff === 1) {
-          today = nextDate;
-          streak++;
-          if (streak > records.length - 1) {
-            isStreak = false;
+    if (goal && goal.records) {
+      let today = moment();
+      let shortToday = today.format('YYYY-MM-DD');
+
+      let records = goal.records
+        .map(n => ({ ...n }))
+        .filter(n => n.date <= shortToday)
+        .filterBy('value')
+        .sortBy('date')
+        .reverse();
+
+
+      if (records.length) {
+         let isStreak = true;
+        while (isStreak) {
+          let nextDate = moment(records[streak].date);
+          let diff = today.diff(nextDate, 'days');
+          if (diff === 0 || diff === 1) {
+            today = nextDate;
+            streak++;
+            if (streak > records.length - 1) {
+              isStreak = false;
+            }
           }
+          else isStreak = false;
         }
-        else isStreak = false;
       }
     }
-
     return streak;
   }
 }

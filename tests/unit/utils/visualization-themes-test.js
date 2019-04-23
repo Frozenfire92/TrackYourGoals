@@ -1,11 +1,10 @@
-import preferencesColorTheme from 'track-your-goals/utils/preferences/color-theme';
+import visualizationColorSchemes from 'track-your-goals/utils/visualization-color-schemes';
 import { module, test } from 'qunit';
 
-module('Unit | Utility | preferences/color-theme', function() {
-
-  // Replace this with your real tests.
+module('Unit | Utility | visualization-color-schemes', function() {
   test('it works', function(assert) {
-    let result = preferencesColorTheme();
-    assert.ok(result);
+    Object.keys(visualizationColorSchemes).forEach(key => {
+      assert.ok(visualizationColorSchemes[key].length);
+    })
   });
 });

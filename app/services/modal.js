@@ -12,16 +12,40 @@ export default class ModalService extends Service {
   @tracked options = null;
   @tracked successText = null;
 
-  @action open({ title, message, successAction, successText, cancelAction, component, model, options }) {
-    this.title = title;
-    this.message = message;
-    this.successAction = successAction;
-    this.successText = successText;
-    this.cancelAction = cancelAction;
-    this.component = component;
-    this.model = model;
-    this.options = options;
-    this.isOpen = true;
+  @action open({
+    title = null,
+    message = null,
+    successAction = null,
+    successText = null,
+    cancelAction = null,
+    component = null,
+    model = null,
+    options = null
+  } = {}) {
+    if (
+      title === null &&
+      message === null &&
+      successAction === null &&
+      successText === null &&
+      cancelAction === null &&
+      component === null &&
+      model === null &&
+      options === null
+    ) {
+      this.isOpen = false;
+      return;
+    }
+    else {
+      this.title = title;
+      this.message = message;
+      this.successAction = successAction;
+      this.successText = successText;
+      this.cancelAction = cancelAction;
+      this.component = component;
+      this.model = model;
+      this.options = options;
+      this.isOpen = true;
+    }
   }
 
   @action async ok() {

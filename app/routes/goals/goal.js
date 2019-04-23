@@ -7,7 +7,7 @@ export default class GoalsGoalRoute extends Route {
 
   model({ id }) {
     if (id === 'demo') {
-      return this.goals.demo();
+      return this.goals.demo;
     }
     else {
       return this.goals.goals.findBy('id', id);
