@@ -3,7 +3,7 @@
 
     {{#if @options.startDate}}
       <p>
-        {{moment-format @options.startDate 'MMMM Do YYYY'}}
+        {{moment-format @options.startDate "MMMM Do YYYY"}}
       </p>
     {{else}}
       {{#if (and this.today (not this.showDate))}}
