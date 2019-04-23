@@ -7,6 +7,9 @@ import moment from 'moment';
 
 export default class DataController extends Controller {
   @service modal;
+  @service goals;
+
+  csvHeader = 'id,goal,type,date,value';
 
   @tracked importUnderstood = false;
 
@@ -24,14 +27,79 @@ export default class DataController extends Controller {
         return;
       }
       localStorage.clear();
-      this.modal.open({
-        title: 'Import successful',
-        message: 'data deleted and file loaded'
-      });
       Object.keys(parsedData).forEach(key =>
         localStorage.setItem(key, parsedData[key])
       );
       this.importUnderstood = false;
+      this.modal.open({
+        title: 'Import successful',
+        message: 'data deleted and file loaded'
+      });
+    }
+    else if (type === 'text/csv') {
+      try {
+        let parsedData = data.split('\n');
+
+        if (parsedData[0] !== this.csvHeader) {
+          this.modal.open({
+            title: 'Import failed',
+            message: `Expected csv header of ${this.csvHeader}`
+          });
+          return;
+        }
+
+        let rows = parsedData.slice(1).map(n=>n.split(','));
+        let goals = {};
+        let denseRows = rows.map(n => ({
+          id: n[0],
+          name: n[1],
+          type: n[2],
+          date: n[3],
+          value: JSON.parse(n[4])
+        }));
+
+        denseRows.forEach(goal => {
+          if (goals.hasOwnProperty(goal.id)) {
+            let existing = goals[goal.id].records.findBy('date', goal.date);
+            if (existing) {
+              existing.value = goal.value;
+            }
+            else {
+              goals[goal.id].records.push({ date: goal.date, value: goal.value });
+            }
+          }
+          else {
+            goals[goal.id] = {
+              id: goal.id,
+              name: goal.name,
+              type: goal.type,
+              records: [
+                { date: goal.date, value: goal.value }
+              ]
+            };
+          }
+        });
+        localStorage.clear();
+        Object.keys(goals).forEach(id => this.goals.create(
+          goals[id].name,
+          goals[id].type,
+          goals[id].records,
+          id
+        ));
+        this.importUnderstood = false;
+        this.modal.open({
+          title: 'Import successful',
+          message: 'data deleted and file loaded'
+        });
+      }
+      catch {
+        this.modal.open({
+          title: 'Import failed',
+          message: 'data not deleted as file uploaded could not be read'
+        });
+        return;
+      }
+
     }
     else {
       this.modal.open({
@@ -41,12 +109,29 @@ export default class DataController extends Controller {
     }
   }
 
-  @action exportData() {
-    let textData = JSON.stringify(localStorage);
+  @action exportData(type) {
+    let fileName;
+    let fileType;
+    let textData;
+    if (type === 'json') {
+      fileName = `track-your-goals-backup-${moment().format('YYYY-MM-DD-HH-mm-ss')}.json`;
+      fileType = 'application/json;charset=utf-8';
+      textData = JSON.stringify(localStorage);
+    }
+    else if (type === 'csv') {
+      fileName = `track-your-goals-backup-${moment().format('YYYY-MM-DD-HH-mm-ss')}.csv`;
+      fileType = 'text/csv';
+      let rows = [];
+      this.goals.goals.forEach(goal => {
+        if (goal.records && goal.records.length) {
+          let name = goal.name.replace(/,/g, ' ');
+          goal.records.forEach(record => rows.push(`${goal.id},${name},${goal.type},${record.date},${record.value}`));
+        }
+      })
+      textData = `${this.csvHeader}\n${rows.join('\n')}`;
+    }
 
     // Generate and download file
-    let fileName = `track-your-goals-backup-${moment().format('YYYY-MM-DD-HH-mm-ss')}.json`;
-    let fileType = 'application/json;charset=utf-8';
     let file;
     try {
       file = new File([textData], fileName, { type: fileType });

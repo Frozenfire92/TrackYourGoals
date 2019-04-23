@@ -24,14 +24,16 @@ export default class GoalsService extends Service {
     };
   }
 
-  @action create(name, type) {
+  @action create(name, type, records = [], id) {
     if (name && type) {
-      let id = uuid();
-      while (this.goals.find((n) => n.id === id)) {
+      if (!id) {
         id = uuid();
+        while (this.goals.find((n) => n.id === id)) {
+          id = uuid();
+        }
       }
 
-      let goal = { id, name, type, records: [] };
+      let goal = { id, name, type, records };
 
       this.goals = [
         goal,

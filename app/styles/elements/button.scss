@@ -54,6 +54,11 @@ input[type="submit"] {
       background: shade($primary-color, 25%) !important;
     }
   }
+
+  .icon {
+    display: inline;
+    vertical-align: bottom;
+  }
 }
 
 .dark {

@@ -1,8 +1,8 @@
 <section>
-  <h4>Import Data</h4>
+  <h4>Import Backup Data</h4>
   {{#if this.importUnderstood}}
     <FileUpload
-      accept=".json"
+      accept=".json,.csv"
       title="Import data"
       @change={{this.importData}}
     />
@@ -18,11 +18,18 @@
     Export Data
   </h4>
   <button
-    title="Download"
+    title="Download Backup"
     class="primary"
-    {{action this.exportData}}
+    {{action this.exportData "json"}}
   >
-    {{svg-jar "download" class="icon"}}
+    {{svg-jar "download" class="icon"}} Backup
+  </button>
+  <button
+    title="Download CSV (Excel)"
+    class="primary"
+    {{action this.exportData "csv"}}
+  >
+    {{svg-jar "download" class="icon"}} CSV
   </button>
 </section>
 
