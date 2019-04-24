@@ -4,8 +4,11 @@ import { setupTest } from 'ember-qunit';
 module('Unit | Route | goals/index', function(hooks) {
   setupTest(hooks);
 
-  test('it exists', function(assert) {
+  test('model returns goals service goals array', function(assert) {
     let route = this.owner.lookup('route:goals/index');
-    assert.ok(route);
+    let service = this.owner.lookup('service:goals');
+    const goals = [{ id: 1, name: 'wow', type: 'amount-integer', records: [] }];
+    service.goals = goals;
+    assert.deepEqual(route.model(), goals);
   });
 });

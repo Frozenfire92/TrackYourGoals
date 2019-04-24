@@ -25,6 +25,7 @@ export default class GoalsService extends Service {
   }
 
   @action create(name, type, records = [], id) {
+    console.log('create', name, type);
     if (name && type) {
       if (!id) {
         id = uuid();

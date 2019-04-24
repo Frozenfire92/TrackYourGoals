@@ -5,8 +5,9 @@ module('Unit | Controller | settings', function(hooks) {
   setupTest(hooks);
 
   // Replace this with your real tests.
-  test('it exists', function(assert) {
+  test('it has a settings service', function(assert) {
     let controller = this.owner.lookup('controller:settings');
-    assert.ok(controller);
+    let service = this.owner.lookup('service:settings');
+    assert.equal(controller.settings, service);
   });
 });
