@@ -47,4 +47,8 @@ export default class GoalUpdaterComponent extends Component {
       );
     }
   }
+
+  @action focusInput(element) {
+    element.focus();
+  }
 }
