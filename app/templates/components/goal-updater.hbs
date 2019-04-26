@@ -36,19 +36,20 @@
         <input type="checkbox" name="complete" checked={{@options.startValue}}>
       </label>
     {{/if}}
+    {{!-- Save comes first for enter press, css row-reverse to put it on the right --}}
     <footer>
-      <button
-        title="Close data tracking"
-        {{action @cancel}}
-      >
-        {{svg-jar "cancel" class="icon"}}
-      </button>
       <button
         title="Save"
         class="primary"
         type="submit"
       >
         {{svg-jar "save" class="icon"}}
+      </button>
+      <button
+        title="Close data tracking"
+        {{action @cancel}}
+      >
+        {{svg-jar "cancel" class="icon"}}
       </button>
     </footer>
   </form>
