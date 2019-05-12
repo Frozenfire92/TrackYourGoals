@@ -25,10 +25,11 @@ export default class GoalsGoalController extends Controller {
     return data;
   }
 
-  @action openGoalUpdaterModal(goal, date) {
-    let startValue = date
-      ? (goal.records.findBy('date', date) || { value: null }).value
-      : null;
+  @action openGoalUpdaterModal(goal, date, allowSelection = false) {
+    if (!date) {
+      date = (new Date()).toISOString().slice(0,10);
+    }
+    let startValue = (goal.records.findBy('date', date) || { value: null }).value
     this.modal.open({
       title: date ? 'Update Record' : 'New Record',
       successAction: ([nudate, nuvalue]) => {
@@ -38,7 +39,8 @@ export default class GoalsGoalController extends Controller {
       model: goal,
       options: {
         startDate: date,
-        startValue
+        startValue,
+        allowSelection
       }
     });
   }

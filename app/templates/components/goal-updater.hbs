@@ -1,7 +1,7 @@
 {{#if @model}}
   <form class="goal-updater" onsubmit={{action this.submit}}>
 
-    {{#if @options.startDate}}
+    {{#if (and @options.startDate (not @options.allowSelection))}}
       <p>
         {{moment-format @options.startDate "MMMM Do YYYY"}}
       </p>
