@@ -9,6 +9,7 @@ const App = Application.extend({
   Resolver
 });
 
+// @ts-ignore
 loadInitializers(App, config.modulePrefix);
 
 export default App;

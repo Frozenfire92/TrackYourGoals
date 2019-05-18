@@ -9,8 +9,15 @@ const height = 5;
 const slices = 25;
 const sliceSize = width / slices;
 
-export default class VisualizationSchemePreviewComponent extends Component {
-  @action draw(element) {
+export type Args = {
+  scheme: string
+}
+
+export default class VisualizationSchemePreviewComponent extends Component<Args> {
+  svg: any;
+  slices: any;
+
+  @action draw(element: HTMLElement) {
     const { scheme } = this.args;
     if (scheme) {
       if (this.svg && this.slices) {
@@ -27,9 +34,10 @@ export default class VisualizationSchemePreviewComponent extends Component {
           .append('rect')
           .attr('width', sliceSize)
           .attr('height', height)
-          .attr('x', d => d)
+          .attr('x', (d: any) => d)
           .attr('y', () => 0)
-          .attr('fill', d => d3[scheme](d / width))
+          //@ts-ignore
+          .attr('fill', (d: number) => d3[scheme](d / width))
           .attr('stroke', 'none');
       }
     }
@@ -39,7 +47,8 @@ export default class VisualizationSchemePreviewComponent extends Component {
     const { scheme } = this.args;
     const { slices } = this;
     if (scheme) {
-      slices.attr('fill', d => d3[scheme](d / width))
+      //@ts-ignore
+      slices.attr('fill', (d: number) => d3[scheme](d / width))
     }
   }
 }

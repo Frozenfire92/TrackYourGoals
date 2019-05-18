@@ -4,18 +4,18 @@ import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
 
 import moment from 'moment';
+import ModalService from 'track-your-goals/services/modal';
+import GoalsService from 'track-your-goals/services/goals';
 
 export default class DataController extends Controller {
-  @service modal;
-  @service goals;
-
-  csvHeader = 'id,name,type,date,value';
+  @service modal!: ModalService;
+  @service goals!: GoalsService;
 
   @tracked importUnderstood = false;
 
-  @action importData(name, data, type) {
+  @action importData(_name: string, data: any, type: string) {
     if (type === 'application/json') {
-      let parsedData;
+      let parsedData: any;
       try {
         parsedData = JSON.parse(data);
       }
@@ -39,17 +39,17 @@ export default class DataController extends Controller {
       try {
         let parsedData = data.split('\n');
 
-        if (parsedData[0] !== this.csvHeader) {
+        if (parsedData[0] !== csvHeader) {
           this.modal.open({
             title: 'Import failed',
-            message: `Expected csv header of ${this.csvHeader}`
+            message: `Expected csv header of ${csvHeader}`
           });
           return;
         }
 
-        let rows = parsedData.slice(1).map(n=>n.split(','));
-        let goals = {};
-        let denseRows = rows.map(n => ({
+        let rows = parsedData.slice(1).map((n: string)=>n.split(','));
+        let goals: any = {};
+        let denseRows = rows.map((n: any[]) => ({
           id: n[0],
           name: n[1],
           type: n[2],
@@ -57,7 +57,7 @@ export default class DataController extends Controller {
           value: JSON.parse(n[4])
         }));
 
-        denseRows.forEach(goal => {
+        denseRows.forEach((goal: any) => {
           if (goals.hasOwnProperty(goal.id)) {
             let existing = goals[goal.id].records.findBy('date', goal.date);
             if (existing) {
@@ -107,10 +107,10 @@ export default class DataController extends Controller {
     }
   }
 
-  @action exportData(type) {
-    let fileName;
+  @action exportData(type: string) {
+    let fileName: string = 'track-your-goals-backup';
     let fileType;
-    let textData;
+    let textData: any;
     if (type === 'json') {
       fileName = `track-your-goals-backup-${moment().format('YYYY-MM-DD-HH-mm-ss')}.json`;
       fileType = 'application/json;charset=utf-8';
@@ -119,14 +119,14 @@ export default class DataController extends Controller {
     else if (type === 'csv') {
       fileName = `track-your-goals-backup-${moment().format('YYYY-MM-DD-HH-mm-ss')}.csv`;
       fileType = 'text/csv';
-      let rows = [];
+      let rows: any[] = [];
       this.goals.goals.forEach(goal => {
         if (goal.records && goal.records.length) {
           let name = goal.name.replace(/,/g, ' ');
           goal.records.forEach(record => rows.push(`${goal.id},${name},${goal.type},${record.date},${record.value}`));
         }
       })
-      textData = `${this.csvHeader}\n${rows.join('\n')}`;
+      textData = `${csvHeader}\n${rows.join('\n')}`;
     }
 
     // Generate and download file
@@ -151,7 +151,6 @@ export default class DataController extends Controller {
       title: 'Delete all data',
       message: 'Are you sure? This action can\'t be reversed.',
       successAction: () => localStorage.clear(),
-      cancelAction: true,
       successText: 'delete'
     });
   }

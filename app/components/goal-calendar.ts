@@ -4,20 +4,35 @@ import { tracked } from '@glimmer/tracking';
 
 import * as d3 from 'd3';
 
+import { GoalType } from 'track-your-goals/utils/enums';
 import { inLocalStorage } from 'track-your-goals/utils/decorators';
 import { maxBoolean, maxFloat, maxInt } from 'track-your-goals/utils/reduce';
 
-export default class GoalCalendarComponent extends Component {
-  constructor() {
-    super(...arguments);
+export type Args = {
+  cellSize: number,
+  data: any,
+  type: GoalType,
+  colorScheme: string,
+  openGoalUpdater: (key: string) => void
+}
+
+export default class GoalCalendarComponent extends Component<Args> {
+  constructor(owner: unknown, args: any){
+    super(owner, args);
     this.year = this.years[this.years.length - 1];
   }
 
+  //@ts-ignore
   @inLocalStorage orientation = 'vertical';
-  orientations = ['vertical', 'horizontal'];
+  orientations: string[] = ['vertical', 'horizontal'];
 
   format = d3.timeFormat('%Y-%m-%d');
   shownTooltip = null;
+  titles: any;
+  tooltip: any;
+  days: any;
+  svg: any;
+  group: any;
 
   get cellSize() { return this.args.cellSize || 10; }
   get horizontal() { return this.orientation === 'horizontal'; }
@@ -32,7 +47,7 @@ export default class GoalCalendarComponent extends Component {
       : this.cellSize * 9;
   }
 
-  @tracked year;
+  @tracked year: number;
   @computed('data')
   get years() {
     return Object.keys(this.args.data)
@@ -48,7 +63,7 @@ export default class GoalCalendarComponent extends Component {
     let { titles } = this;
     let { data } = this.args;
 
-    titles.text(d => {
+    titles.text((d: Date) => {
       let key = this.format(d);
       return data.hasOwnProperty(key)
         ? `${key}: ${data[key]}`
@@ -69,8 +84,8 @@ export default class GoalCalendarComponent extends Component {
       .attr('viewBox', `0 0 ${width} ${height}`)
       .attr('class', this.orientation);
 
-    let weeks = d => d3.timeWeek.count(d3.timeYear(d), d) * cellSize + cellSize;
-    let week = d => d.getDay() * cellSize + cellSize;
+    let weeks = (d: Date) => d3.timeWeek.count(d3.timeYear(d), d) * cellSize + cellSize;
+    let week = (d: { getDay: () => number; }) => d.getDay() * cellSize + cellSize;
 
     days
       .attr('y', horizontal ? week : weeks)
@@ -80,7 +95,7 @@ export default class GoalCalendarComponent extends Component {
     this.tooltip.style('opacity', 0);
   }
 
-  @action updateYear(e) {
+  @action updateYear(e: { target: { value: string; }; }) {
     this.year = parseInt(e.target.value);
     let { days, year } = this;
     days.data(d3.timeDays(new Date(year, 0, 1), new Date(year + 1, 0, 1)));
@@ -98,24 +113,27 @@ export default class GoalCalendarComponent extends Component {
 
     let reducer;
     switch(type) {
-      case 'boolean': reducer = maxBoolean; break;
-      case 'amount-float': reducer = maxFloat; break;
-      case 'amount-integer': reducer = maxInt; break;
+      case GoalType.Boolean: reducer = maxBoolean; break;
+      case GoalType.Float: reducer = maxFloat; break;
+      default:
+      case GoalType.Integer: reducer = maxInt; break;
     }
 
     let max = Object.keys(data)
       .map(n => data[n])
       .reduce(reducer, 0);
 
-    days.attr('fill', d => {
+    days.attr('fill', (d: Date) => {
       let key = this.format(d);
       return data.hasOwnProperty(key)
+        //@ts-ignore
         ? d3[colorScheme](data[key] / max)
+        //@ts-ignore
         : d3[colorScheme](0)
     });
   }
 
-  @action draw(element) {
+  @action draw(element: any) {
     let {
       width,
       height,
@@ -131,9 +149,10 @@ export default class GoalCalendarComponent extends Component {
 
     let reducer;
     switch(type) {
-      case 'boolean': reducer = maxBoolean; break;
-      case 'amount-float': reducer = maxFloat; break;
-      case 'amount-integer': reducer = maxInt; break;
+      case GoalType.Boolean: reducer = maxBoolean; break;
+      case GoalType.Float: reducer = maxFloat; break;
+      default:
+      case GoalType.Integer: reducer = maxInt; break;
     }
 
     let max = Object.keys(data)
@@ -149,8 +168,8 @@ export default class GoalCalendarComponent extends Component {
       .append('g');
 
 
-    let weeks = d => d3.timeWeek.count(d3.timeYear(d), d) * cellSize + cellSize;
-    let week = d => d.getDay() * cellSize + cellSize;
+    let weeks = (d: Date) => d3.timeWeek.count(d3.timeYear(d), d) * cellSize + cellSize;
+    let week = (d: { getDay: () => number; }) => d.getDay() * cellSize + cellSize;
 
     this.days = this.group.selectAll('.day')
       .data(d3.timeDays(new Date(year, 0, 1), new Date(year + 1, 0, 1)))
@@ -160,16 +179,18 @@ export default class GoalCalendarComponent extends Component {
       .attr('height', cellSize)
       .attr('y', horizontal ? week : weeks)
       .attr('x', horizontal ? weeks : week)
-      .attr('fill', d => {
+      .attr('fill', (d: Date) => {
         let key = this.format(d);
         return data.hasOwnProperty(key)
+          //@ts-ignore
           ? d3[colorScheme](data[key] / max)
+          //@ts-ignore
           : d3[colorScheme](0)
       });
 
     this.titles = this.days
       .append('title')
-      .text(d => {
+      .text((d: Date) => {
         let key = this.format(d);
         return data.hasOwnProperty(key)
           ? `${key}: ${data[key]}`
@@ -185,7 +206,7 @@ export default class GoalCalendarComponent extends Component {
       // });
 
     this.days
-      .on("click", (d) => {
+      .on("click", (d: Date) => {
         let key = this.format(d);
         this.args.openGoalUpdater(key);
       });

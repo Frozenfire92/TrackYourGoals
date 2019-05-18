@@ -13,10 +13,9 @@
       {{/if}}
     {{/if}}
 
-
     {{#if (contains
       @model.type
-      (array "amount-integer" "amount-float")
+      (array 1 2)
     )}}
       <label>
         I accomplished this much
@@ -27,10 +26,10 @@
           min="0"
           placeholder="0"
           value={{@options.startValue}}
-          step={{if (eq @model.type "amount-float") "any" "1"}}
+          step={{if (eq @model.type 1) "any" "1"}}
         >
       </label>
-    {{else if (eq @model.type "boolean")}}
+    {{else if (eq @model.type 0)}}
       <label>
         I accomplished my goal
         <input type="checkbox" name="complete" checked={{@options.startValue}}>

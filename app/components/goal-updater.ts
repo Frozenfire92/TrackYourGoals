@@ -4,20 +4,29 @@ import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
 
 import moment from 'moment';
+import ModalService from 'track-your-goals/services/modal';
 
-export default class GoalUpdaterComponent extends Component {
-  constructor(){
-    super(...arguments);
+export type Args = {
+  model: any,
+  options: any,
+  submit: (name: string, value: any) => any
+}
+
+export default class GoalUpdaterComponent extends Component<Args> {
+  constructor(owner: unknown, args: any){
+    super(owner, args);
+    //@ts-ignore
     this.date = (new moment()).format('YYYY-MM-DD');
   }
 
-  @service modal;
+  @service modal!: ModalService;
 
-  @tracked date = null;
-  @tracked showDate = false;
+  @tracked date: string | null = null;
+  @tracked showDate: boolean = false;
 
   @computed('date')
   get today() {
+    //@ts-ignore
     if (this.date === (new moment()).format('YYYY-MM-DD')) {
       this.showDate = false;
       return true;
@@ -29,7 +38,7 @@ export default class GoalUpdaterComponent extends Component {
     this.showDate = true;
   }
 
-  @action submit(e) {
+  @action submit(e: any) {
     e.preventDefault();
 
     let value;
@@ -48,7 +57,7 @@ export default class GoalUpdaterComponent extends Component {
     }
   }
 
-  @action focusInput(element) {
+  @action focusInput(element: HTMLElement) {
     element.focus();
   }
 }
